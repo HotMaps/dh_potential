@@ -35,7 +35,7 @@ def main(heat_density_map, pix_threshold, DH_threshold, output_dir,
         return outRasterPath1, outShapefilePath
     else:
         import numpy as np
-        return outRasterPath1, np.sum(DHPot)
+        return np.sum(DHPot)
     
     
 

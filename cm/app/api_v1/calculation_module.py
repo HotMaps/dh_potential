@@ -8,7 +8,7 @@ import dh_potential.CM.CM_TUW4.run_cm as CM4
 
 
 
-def calculation(heat_density_map, pix_threshold, DH_threshold):
+def calculation(heat_density_map, pix_threshold, DH_threshold, output_dir):
     '''
     inputs:
         hdm in raster format for the selected region
@@ -21,8 +21,11 @@ def calculation(heat_density_map, pix_threshold, DH_threshold):
     output_dir = path + os.dir + 'Outputs'
     if not os.path.exists(output_dir):
         os.mkdir(output_dir)
+    '''
     outRasterPath, outShapefile = CM4.main(heat_density_map, pix_threshold,
                                            DH_threshold, output_dir)
     return {'F13_out_raster_path_0': outRasterPath,
             'F13_out_shapefile_path_0': outShapefile}
-    
+    '''
+    total_potential = CM4.main(heat_density_map, pix_threshold, DH_threshold, output_dir)
+    return total_potential

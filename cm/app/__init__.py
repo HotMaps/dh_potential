@@ -1,5 +1,12 @@
 
 import os
+import sys
+
+path = os.path.dirname(os.path.abspath(__file__))
+if path not in sys.path:
+    sys.path.append(path)
+
+
 from flask import Flask, jsonify, g
 from .constant import SIGNATURE,CM_NAME
 from .decorators import json, no_cache, rate_limit
