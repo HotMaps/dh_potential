@@ -1,30 +1,28 @@
+import os
+import sys
+path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.
+                                                       abspath(__file__))))
+if path not in sys.path:
+    sys.path.append(path)
+import dh_potential.CM.CM_TUW4.run_cm as CM4
 
-from osgeo import gdal
-
-""" Entry point of the calculation module function"""
 
 
+def calculation(heat_density_map, pix_threshold, DH_threshold):
+    '''
+    inputs:
+        hdm in raster format for the selected region
+        pix_threshold [GWh/km2]
+        DH_threshold [GWh/a]
 
-def calculation(input_raster_selection, factor, output_raster):
-    #TODO the folowing code must be changed by the code of the calculation module
-    ds = gdal.Open(input_raster_selection)
-    ds_band = ds.GetRasterBand(1)
-
-    #----------------------------------------------------
-    pixel_values = ds.ReadAsArray()
-    #----------Reduction factor----------------
-
-    pixel_values_modified = pixel_values/ float(factor)
-    indicator = pixel_values_modified.sum()
-    gtiff_driver = gdal.GetDriverByName('GTiff')
-    #print ()
-    out_ds = gtiff_driver.Create(output_raster, ds_band.XSize, ds_band.YSize, 1, ds_band.DataType)
-    out_ds.SetProjection(ds.GetProjection())
-    out_ds.SetGeoTransform(ds.GetGeoTransform())
-
-    out_ds_band = out_ds.GetRasterBand(1)
-    out_ds_band.SetNoDataValue(0)
-    out_ds_band.WriteArray(pixel_values_modified)
-
-    del out_ds
-    return indicator
+    Outputs:
+        DH_Regions: contains binary values (no units) showing coherent areas
+    '''
+    output_dir = path + os.dir + 'Outputs'
+    if not os.path.exists(output_dir):
+        os.mkdir(output_dir)
+    outRasterPath, outShapefile = CM4.main(heat_density_map, pix_threshold,
+                                           DH_threshold, output_dir)
+    return {'F13_out_raster_path_0': outRasterPath,
+            'F13_out_shapefile_path_0': outShapefile}
+    
