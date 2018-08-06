@@ -29,7 +29,7 @@ def get(filename):
 @api.route('/register/', methods=['POST'])
 def register():
 
-    #""" register the Calculation module (CM)to the main web services (MWS)-
+    #""" register the Calculation module (CM) to the main web services (MWS)-
     #the CM will send its SIGNATURE to the main web service, CM SIGNATURE contains elements to identity the CM and
     #how to handle it and the list of input it needs on the user interface. CM SIGNATURE can be find on app/constants.py file, this file must be change manually
     #Also constants.py must contains a CM_ID that is a unique number that as to be defined by the CREM (Centre de Recherches Energetiques et Municipales de Martigny)
@@ -80,7 +80,7 @@ def savefile(filename,url):
 @api.route('/compute/', methods=['POST'])
 def compute():
 
-    """ compute the Calculation module (CM)from the main web services (MWS)-
+    """ compute the Calculation module (CM) from the main web services (MWS)-
     the main web service is sending
         ---
        parameters:
@@ -94,11 +94,16 @@ def compute():
             type: string
             required: true
             default: http://127.0.0.1:5000/api/cm/files/6d998d5c-5139-4f77-b0b3-8ee078e4527c.tif
-          - name: reduction_factor
+          - name: pixel threshold
             in: path
-            type: integer
+            type: float
             required: true
-            default: 1
+            default: 10
+          - name: district heating threshold
+            in: path
+            type: float
+            required: true
+            default: 30
 
        definitions:
          Color:
@@ -107,7 +112,7 @@ def compute():
          200:
            description: MWS is aware of the CM
            examples:
-            results: {"response": {"category": "Buildings", "cm_name": "calculation_module_1", "layers_needed": ["heat_density_tot"], "cm_description": "this computation module allows to ....", "cm_url": "http://127.0.0.1:5002/", "cm_id": 1, "inputs_calculation_module": [{"input_min": 1, "input_value": 1, "input_unit": "none", "input_name": "Reduction factor", "cm_id": 1, "input_type": "input", "input_parameter_name": "reduction_factor", "input_max": 10}, {"input_min": 10, "input_value": 50, "input_unit": "", "input_name": "Blablabla", "cm_id": 1, "input_type": "range", "input_parameter_name": "bla", "input_max": 1000}]}}
+            results: {"response": {"category": "Buildings", "cm_name": "dh_potential", "layers_needed": ["heat_density_tot"], "cm_description": "this computation module allows to calculate the total district heating potential within a selected zone and reuturns layers and indicators corresponding to the district heating potential.", "cm_url": "http://127.0.0.1:5001/", "cm_id": 1, "inputs_calculation_module": [{"input_min": 1, "input_value": 10, "input_unit": "GWh/km2", "input_name": "Pixel Threshold", "cm_id": 1, "input_type": "input", "input_parameter_name": "pix_threshold", "input_max": 200}, {"input_min": 1, "input_value": 200, "input_unit": "GWh/year", "input_name": "DH Threshold", "cm_id": 1, "input_type": "input", "input_parameter_name": "DH_threshold", "input_max": 200}]}}
              """
 
     print('CM will Compute ')
@@ -142,6 +147,7 @@ def compute():
 
     }
     response = json.dumps(response)
+    # print(response)
     return response
 
 

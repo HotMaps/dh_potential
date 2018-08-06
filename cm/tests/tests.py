@@ -37,7 +37,7 @@ class TestAPI(unittest.TestCase):
         # register the calculation module a
         payload = {"filename": "raster_for_test.tif",
                    "url_file": "http://127.0.0.1:5001/computation-module/files/raster_for_test.tif",
-                   "reduction_factor": 3}
+                   "pix_threshold": 10, "DH_threshold": 30}
 
 
         rv, json = self.client.post('computation-module/compute/', data=payload)
