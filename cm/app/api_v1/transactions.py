@@ -11,7 +11,7 @@ from app import constant
 from app.constant import PORT,RPC_Q
 from app.api_v1 import errors
 import socket
-
+from . import calculation_module
 
 
 
@@ -66,7 +66,7 @@ def registerCM(data):
 
 
 def savefile(filename,url):
-    print(url)
+    print (url)
     r = requests.get(url, stream=True)
     path = None
     print('image saved',r.status_code)
@@ -79,6 +79,7 @@ def savefile(filename,url):
 
 @api.route('/compute/', methods=['POST'])
 def compute():
+    #TODO: CM provider must "change the documentation with the information of his CM
 
     """ compute the Calculation module (CM) from the main web services (MWS)-
     the main web service is sending
@@ -118,7 +119,7 @@ def compute():
     print('CM will Compute ')
     #import ipdb; ipdb.set_trace()
     data = request.get_json()
-    print(data)
+
     url_file = data["url_file"]
     filename = data["filename"]
     # part to modify from the CM rpovider
@@ -131,6 +132,7 @@ def compute():
 
     # call the calculation module function
     indicator = calculation(input_raster_selection, pix_threshold, DH_threshold, output_raster_selection)
+    indicator = calculation_module.calculation(input_raster_selection, factor=reduction_factor, output_raster=output_raster_selection)
     base_url =  request.base_url.replace("compute","files")
     url_download_raster = base_url + filename
     print('indicator {}'.format(indicator))
@@ -147,7 +149,6 @@ def compute():
 
     }
     response = json.dumps(response)
-    # print(response)
     return response
 
 
