@@ -1,20 +1,19 @@
 
-CELERY_BROKER_URL = 'amqp://admin:mypass@rabbit:5672/'
-#CELERY_BROKER_URL = 'amqp://localhost/'
+#CELERY_BROKER_URL = 'amqp://admin:mypass@rabbit:5672/'
+CELERY_BROKER_URL = 'amqp://localhost/'
 
 
 #CELERY_BROKER_URL = 'amqp://admin:mypass@localhost:5672/'
-
-
+CM_REGISTER_Q = 'rpc_queue_CM_register'
 CM_NAME = 'District Heating Potential'
-
-RPC_Q = 'rpc_queue_CM' # Do no change this value
-CM_ID = 1
+RPC_CM_ALIVE= 'rpc_queue_CM_ALIVE'
+RPC_Q = 'rpc_queue_CM_compute' # Do no change this value
+CM_ID = 2
 PORT = 5000 + CM_ID
 
 
 INPUTS_CALCULATION_MODULE = [
-    {'input_name': 'pix_threshold',
+    {'input_name': 'Pixel threshold',
      'input_type': 'input',
      'input_parameter_name': 'pix_threshold',
      'input_value': 10,
@@ -22,7 +21,7 @@ INPUTS_CALCULATION_MODULE = [
      'input_min': 1,
      'input_max': 100, 'cm_id': CM_ID
      },
-    {'input_name': 'DH_threshold',
+    {'input_name': 'Distict heating area threshold',
      'input_type': 'input',
      'input_parameter_name': 'DH_threshold',
      'input_value': 30,

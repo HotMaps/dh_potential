@@ -125,6 +125,7 @@ def DHReg(heat_density_map, pix_threshold, DH_threshold, in_orig=None):
     pix_threshold = pix_threshold * 10
     # Factor 1000 for conversion from GWh/a to MWh/a
     DH_threshold = DH_threshold * 1000
+    hdm_arr = None
     if isinstance(heat_density_map, np.ndarray):
         if not in_orig:
             raise TypeError('The raster origin is of None type!')

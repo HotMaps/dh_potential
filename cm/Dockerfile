@@ -45,12 +45,6 @@ RUN apt-get update \
 
 
 
-
-
-
-
-
-
 # Setup app server
 RUN mkdir -p /data
 COPY . /cm
