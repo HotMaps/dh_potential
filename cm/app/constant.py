@@ -14,15 +14,16 @@ PORT = 5000 + CM_ID
 
 
 INPUTS_CALCULATION_MODULE = [
-    {'input_name': 'pix_threshold',
+    {'input_name': 'Min. heat demand in hectare',
      'input_type': 'input',
      'input_parameter_name': 'pix_threshold',
      'input_value': 10,
      'input_unit': 'GWh/km2',
      'input_min': 1,
-     'input_max': 100, 'cm_id': CM_ID
+     'input_max': 100,
+     'cm_id': CM_ID
      },
-    {'input_name': 'DH_threshold',
+    {'input_name': 'Min. heat demand in a DH area',
      'input_type': 'input',
      'input_parameter_name': 'DH_threshold',
      'input_value': 30,
@@ -41,7 +42,7 @@ SIGNATURE = {
         "heat_density_tot"
     ],
     "cm_url": "Do not add something",
-    "cm_description": "this computation module calculates district heating potential within the selected region",
+    "cm_description": "This computation module calculates district heating potential within the selected region",
     "cm_id": CM_ID,
     'inputs_calculation_module': INPUTS_CALCULATION_MODULE
 }

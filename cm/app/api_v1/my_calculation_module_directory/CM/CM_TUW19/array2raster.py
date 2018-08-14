@@ -1,5 +1,5 @@
 """
-Created on July 26 2017
+Created on August 14 2018
 
 @author: fallahnejad@eeg.tuwien.ac.at
 """
@@ -9,7 +9,6 @@ import time
 import numpy as np
 from osgeo import gdal
 from osgeo import osr
-# from asn1crypto._ffi import null
 path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.
                                                        abspath(__file__))))
 if path not in sys.path:
@@ -49,19 +48,17 @@ def array2raster(outRasterPath, geo_transform, dataType, array, noDataValue=0,
     outRasterSRS.ImportFromEPSG(OutputRasterSRS)
     outRaster.SetProjection(outRasterSRS.ExportToWkt())
     outRaster.GetRasterBand(1).SetNoDataValue(noDataValue)
-#     This can be used for dtype int8
-#     if colortable:
-#         try:
-#             ct = gdal.ColorTable()
-#             ct.SetColorEntry(0, (0,0,0,255))
-#             ct.SetColorEntry(1, (0,255,0,255))
-#             ct.SetColorEntry(2, (255,0,0,255))
-#             ct.SetColorEntry(3, (255,0,255,255))
-#             outRaster.GetRasterBand(1).SetColorTable(ct)
-#         except:
-#             pass
+
+    # This can be used for dtype int8
+    ct = gdal.ColorTable()
+    ct.SetColorEntry(0, (0,0,0,255))
+    ct.SetColorEntry(1, (110,220,110,255))
+    outRaster.GetRasterBand(1).SetColorTable(ct)
+
+
     outRaster.GetRasterBand(1).WriteArray(array)
     outRaster.FlushCache()
+
 
 
 if __name__ == "__main__":
