@@ -19,10 +19,8 @@ log = logging.getLogger(__name__)
 
 class CalculationModuleRpcClient(object):
     def __init__(self):
-        #credentials = pika.PlainCredentials('admin', 'mypass')
-        #self.connection = pika.BlockingConnection(pika.ConnectionParameters(host='rabbit', port =5672 , credentials= credentials))
-
-        self.connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+        parameters = pika.URLParameters(constant.CELERY_BROKER_URL)
+        self.connection = pika.BlockingConnection(parameters)
 
         self.channel = self.connection.channel()
 
@@ -38,6 +36,7 @@ class CalculationModuleRpcClient(object):
             print (self.response)
 
     def call(self,data):
+        log.info('%s',data)
         self.response = None
         self.corr_id = constant.CM_REGISTER_Q
         self.channel.basic_publish(exchange='',
