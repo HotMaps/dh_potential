@@ -328,6 +328,14 @@ python run.py
 2 . add main function in calculation() functions (calculation_module.py )
 
 
+colorize raster:
+# TODO How to colorize raster
+ct = gdal.ColorTable()
+ct.SetColorEntry(0, (0,0,0,255))
+ct.SetColorEntry(1, (110,220,110,255))
+outRaster.GetRasterBand(1).SetColorTable(ct)
+
+
 
 
 ```json
