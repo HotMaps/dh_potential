@@ -9,7 +9,7 @@ CELERY_BROKER_URL = 'amqp://localhost/'
 CM_NAME = 'District Heating Potential'
 
 RPC_Q = 'rpc_queue_CM' # Do no change this value
-CM_ID = 1
+CM_ID = 2
 PORT = 5000 + CM_ID
 
 
