@@ -34,7 +34,7 @@ def main(heat_density_map, pix_threshold, DH_threshold, output_raster,
     '''
     DHPot, labels = DHP.DHPotential(DH_Regions, heat_density_map)
     """potential of each coherent area in GWh is assigned to its pixels"""
-    CM19.main(output_raster, geo_transform, 'int16', DH_Regions)
+    CM19.main(output_raster, geo_transform, 'int8', DH_Regions)
     
     if verbose:
         CM19.main(outRasterPath2, geo_transform, 'int32', labels)

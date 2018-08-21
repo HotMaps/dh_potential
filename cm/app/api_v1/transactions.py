@@ -133,8 +133,8 @@ def compute():
     filename = data["filename"]
     # part to modify from the CM rpovider
         #parameters needed from the CM
-    pix_threshold = data["pix_threshold"]
-    DH_threshold = data["DH_threshold"]
+    pix_threshold = int(data["pix_threshold"])
+    DH_threshold = int(data["DH_threshold"])
     input_raster_selection = savefile(filename,url_file) # input raster selection
     filename = str(uuid.uuid4()) + '.tif'
     output_raster_selection = UPLOAD_DIRECTORY+'/'+filename  # output raster
@@ -158,6 +158,7 @@ def compute():
         'filename': filename
 
     }
+
     print('payload output {}'.format(response))
     response = json.dumps(response)
     return response
