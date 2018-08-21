@@ -36,7 +36,7 @@ class TestAPI(unittest.TestCase):
         copyfile(raster_file_path, save_path)
         # register the calculation module a
         payload = {"filename": "raster_for_test.tif",
-                   "url_file": "http://127.0.0.1:5001/computation-module/files/raster_for_test.tif",
+                   "url_file": "http://127.0.0.1:5002/computation-module/files/raster_for_test.tif",
                    "pix_threshold": 10, "DH_threshold": 30}
 
 

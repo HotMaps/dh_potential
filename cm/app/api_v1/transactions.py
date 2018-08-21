@@ -3,7 +3,7 @@ from . import api
 from .. import SIGNATURE,CM_NAME
 import json
 import requests
-from calculation_module import calculation
+
 import os
 from flask import send_from_directory
 import uuid
@@ -11,7 +11,7 @@ from app import constant
 
 from app.api_v1 import errors
 import socket
-
+from . import calculation_module
 from app import CalculationModuleRpcClient
 
 
@@ -140,9 +140,10 @@ def compute():
     output_raster_selection = UPLOAD_DIRECTORY+'/'+filename  # output raster
 
     # call the calculation module function
-    indicator = calculation(input_raster_selection, pix_threshold, DH_threshold, output_raster_selection)
+    indicator = calculation_module.calculation(input_raster_selection, pix_threshold, DH_threshold, output_raster_selection)
+    ip = socket.gethostbyname(socket.gethostname())
 
-    base_url =  request.base_url.replace("compute","files")
+    base_url = 'http://'+ str(ip) +':'+ str(constant.PORT) +'/computation-module/files/'
     url_download_raster = base_url + filename
     print('indicator {}'.format(indicator))
     response = {
@@ -157,6 +158,7 @@ def compute():
         'filename': filename
 
     }
+    print('payload output {}'.format(response))
     response = json.dumps(response)
     return response
 
