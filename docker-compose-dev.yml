@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     restart: always
     ports:
-     - "5001:5001"
+     - "5002:5002"
     external_links:
          - rabbit
     networks:

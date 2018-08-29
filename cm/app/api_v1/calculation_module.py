@@ -4,7 +4,7 @@ path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.
                                                        abspath(__file__))))
 if path not in sys.path:
     sys.path.append(path)
-import dh_potential.CM.CM_TUW4.run_cm as CM4
+import my_calculation_module_directory.CM.CM_TUW4.run_cm as CM4
 
 
 

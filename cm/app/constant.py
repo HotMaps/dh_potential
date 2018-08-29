@@ -2,7 +2,7 @@
 CELERY_BROKER_URL_DOCKER = 'amqp://admin:mypass@rabbit:5672/'
 CELERY_BROKER_URL_LOCAL = 'amqp://localhost/'
 
-CELERY_BROKER_URL = CELERY_BROKER_URL_LOCAL
+CELERY_BROKER_URL = CELERY_BROKER_URL_DOCKER
 #CELERY_BROKER_URL = 'amqp://admin:mypass@localhost:5672/'
 CM_REGISTER_Q = 'rpc_queue_CM_register'
 CM_NAME = 'District Heating Potential'
@@ -38,7 +38,10 @@ SIGNATURE = {
     "category": "Buildings",
     "cm_name": CM_NAME,
     "layers_needed": [
-        "heat_density_tot"
+        "heat_density_tot",
+        "cdd_curr_tif",
+       "gfa_nonres_curr_density",
+        "gfa_res_curr_density_lau"
     ],
     "cm_url": "Do not add something",
     "cm_description": "This computation module calculates district heating potential within the selected region",

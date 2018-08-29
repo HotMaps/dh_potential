@@ -3,7 +3,7 @@ from . import api
 from .. import SIGNATURE,CM_NAME
 import json
 import requests
-from calculation_module import calculation
+
 import os
 from flask import send_from_directory
 import uuid
@@ -11,7 +11,8 @@ from app import constant
 from app.constant import PORT,RPC_Q
 from app.api_v1 import errors
 import socket
-
+from app import CalculationModuleRpcClient
+from . import calculation_module
 
 
 
@@ -25,7 +26,6 @@ if not os.path.exists(UPLOAD_DIRECTORY):
 def get(filename):
     # get file stored in the api directory
     return send_from_directory(UPLOAD_DIRECTORY, filename, as_attachment=True)
-
 @api.route('/register/', methods=['POST'])
 def register():
 
@@ -46,22 +46,22 @@ def register():
     #    """
 
     # about to send the external IP
+    print ('CM will begin register ')
     ip = socket.gethostbyname(socket.gethostname())
-    base_url = 'http://'+ str(ip) +':'+ str(PORT) +'/'
+    # retrive dynamic url
+    base_url = 'http://'+ str(ip) +':'+ str(constant.PORT) +'/'
     signature_final = SIGNATURE
+
+
+    calculation_module_rpc = CalculationModuleRpcClient()
+
     signature_final["cm_url"] = base_url
     payload = json.dumps(signature_final)
-    return registerCM(payload)
+    response = calculation_module_rpc.call(payload)
+    print ('CM will finish register ')
 
-# TODO: WP4 Developer create q register queue
-def registerCM(data):
-    headers = {'Content-Type':  'application/json'}
-    res = requests.post( ""+'api/cm/register/', data = data, headers = headers)
+    return response
 
-
-    reponse = res.text
-    status_code = res.status_code
-    return reponse
 
 
 
@@ -131,7 +131,7 @@ def compute():
     output_raster_selection = UPLOAD_DIRECTORY+'/'+filename  # output raster
 
     # call the calculation module function
-    indicator = calculation(input_raster_selection, pix_threshold, DH_threshold, output_raster_selection)
+    indicator = calculation_module.calculation(input_raster_selection, pix_threshold, DH_threshold, output_raster_selection)
     base_url =  request.base_url.replace("compute","files")
     url_download_raster = base_url + filename
     print('indicator {}'.format(indicator))
