@@ -39,18 +39,9 @@ RUN apt-get update \
     python-gdal \
     make \
     python-pip \
-    python2.7 \
-    python2.7-dev \
     ssh \
     && apt-get autoremove \
     && apt-get clean
-
-
-RUN pip install -U "setuptools==38.5.1"
-
-RUN pip install -U "pip==10.0.1"
-RUN pip install setuptools --upgrade
-
 
 
 
@@ -72,10 +63,14 @@ RUN pip install -r requirements.txt
 EXPOSE 5001
 
 # Start server
-#CMD ["gunicorn", "--config", "gunicorn-config.py", "--log-level", "debug", "run:application"]
-#CMD gunicorn -b 0.0.0.0:5001 --access-logfile - "run:application"
-RUN chmod a+x run_cm_services.sh
-CMD ./run_cm_services.sh
 
+RUN apt-get update && apt-get install -y supervisor
+RUN mkdir -p /var/log/supervisor
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+# CMD ["gunicorn", "--config", "gunicorn-config.py", "--log-config", "app/logging.conf", "run:application"]
+
+# Start processes
+CMD ["/usr/bin/supervisord"]
 
 

@@ -299,9 +299,9 @@ cm/
 - For automatic testing type on the terminal,
 before running test you must run for downloading file in the directory 
     ```bash
-    cd cm
-    python run.py
-    python test.py 
+    cd cm/
+    python run.py #give access to the service needeed for testing
+    python test.py #tests if the compute fucntion is working and validate the integration of the CM 
     
     ```
 
@@ -326,6 +326,14 @@ python run.py
 2 . modify the input parameter name in transaction.py in the input of calculation() from **calculation_module.py**
 
 2 . add main function in calculation() functions (calculation_module.py )
+
+
+colorize raster:
+# TODO How to colorize raster
+ct = gdal.ColorTable()
+ct.SetColorEntry(0, (0,0,0,255))
+ct.SetColorEntry(1, (110,220,110,255))
+outRaster.GetRasterBand(1).SetColorTable(ct)
 
 
 
