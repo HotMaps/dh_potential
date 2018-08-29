@@ -79,6 +79,7 @@ def savefile(filename,url):
 
 @api.route('/compute/', methods=['POST'])
 def compute():
+    #TODO: this documentation must be change by the product ower
 
     """ compute the Calculation module (CM)from the main web services (MWS)-
     the main web service is sending
@@ -94,7 +95,12 @@ def compute():
             type: string
             required: true
             default: http://127.0.0.1:5000/api/cm/files/6d998d5c-5139-4f77-b0b3-8ee078e4527c.tif
-          - name: reduction_factor
+          - name: pix_threshold
+            in: path
+            type: integer
+            required: true
+            default: 1
+          - name: DH_threshold
             in: path
             type: integer
             required: true

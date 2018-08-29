@@ -36,6 +36,7 @@ def DHRegions(DH, DH_threshold):
     # expansion and erosion of the connected components in order to connect
     # different components which are in close vicinity of each other
     # struct(3,3): 200 meter distance between the two connected components
+    #TODO: structure and input must have same dimensionality
     DH_expanded = binary_dilation(DH, structure=struct)
     DH_connected = binary_erosion(DH_expanded, structure=struct)
     # fills the holes within the connected components
@@ -121,10 +122,14 @@ def DHPotential(DH_Regions, heat_density_map):
 
 
 def DHReg(heat_density_map, pix_threshold, DH_threshold, in_orig=None):
+    print (pix_threshold)
+    print (DH_threshold)
     # Factor 10 for conversion from GWh/km2 to MWh/ha
     pix_threshold = pix_threshold * 10
     # Factor 1000 for conversion from GWh/a to MWh/a
     DH_threshold = DH_threshold * 1000
+    #TODO : UnboundLocalError: local variable 'hdm_arr' referenced before assignment
+    hdm_arr = heat_density_map
     if isinstance(heat_density_map, np.ndarray):
         if not in_orig:
             raise TypeError('The raster origin is of None type!')
@@ -139,6 +144,7 @@ def DHReg(heat_density_map, pix_threshold, DH_threshold, in_orig=None):
 
 if __name__ == "__main__":
     start = time.time()
+    #TODO :don't reference any file in the CM the input has to be defind on calculation_module.py
     data_warehouse = path + os.sep + 'AD/data_warehouse'
     heat_density_map = data_warehouse + os.sep + 'heat_tot_curr_density_AT.tif'
     region = data_warehouse + os.sep + 'AT.shp'
@@ -146,6 +152,7 @@ if __name__ == "__main__":
     if not os.path.exists(output_dir):
         os.mkdir(output_dir)
     outRasterPath = output_dir + os.sep + 'Pot_AT_TH30.tif'
+    #TODO :the output as beed
     # pix_threshold [GWh/km2]
     pix_threshold = 10
     # DH_threshold [GWh/a]

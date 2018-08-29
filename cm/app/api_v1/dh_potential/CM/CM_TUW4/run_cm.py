@@ -22,6 +22,7 @@ def main(heat_density_map, pix_threshold, DH_threshold, output_dir,
     if only_return_areas:
         geo_transform = None
         return DH_Regions
+    #TODO the output dir is not define here //
     outRasterPath1 = output_dir + os.sep + 'F13_' + 'Pot_areas.tif'
     outRasterPath2 = output_dir + os.sep + 'F13_' + 'labels.tif'
     outShapefilePath = output_dir + os.sep + 'F13_' + 'Pot_AT_TH30.shp'
