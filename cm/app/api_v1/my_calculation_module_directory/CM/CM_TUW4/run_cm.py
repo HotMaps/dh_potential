@@ -13,8 +13,13 @@ import CM.CM_TUW19.run_cm as CM19
 
 verbose = False
 
-def main(heat_density_map, pix_threshold, DH_threshold, output_dir,
+def main(heat_density_map, pix_threshold, DH_threshold, output_raster,
          in_orig=None, only_return_areas=False):
+    # The CM can be run for the following ranges of pixel and Dh thresholds:
+    if pix_threshold < 1:
+        raise ValueError("Pixel threshold cannot be smaller than 1 GWh/km2!")
+    if DH_threshold < 1:
+        raise ValueError("DH threshold cannot be smaller than 1 GWh/year!")
     # DH_Regions: boolean array showing DH regions
     DH_Regions, geo_transform = DHP.DHReg(heat_density_map, pix_threshold,
                                           DH_threshold, in_orig)
@@ -22,13 +27,14 @@ def main(heat_density_map, pix_threshold, DH_threshold, output_dir,
     if only_return_areas:
         geo_transform = None
         return DH_Regions
-    #TODO the output dir is not define here //
+    '''
     outRasterPath1 = output_dir + os.sep + 'F13_' + 'Pot_areas.tif'
     outRasterPath2 = output_dir + os.sep + 'F13_' + 'labels.tif'
     outShapefilePath = output_dir + os.sep + 'F13_' + 'Pot_AT_TH30.shp'
+    '''
     DHPot, labels = DHP.DHPotential(DH_Regions, heat_density_map)
     """potential of each coherent area in GWh is assigned to its pixels"""
-    CM19.main(outRasterPath1, geo_transform, 'int16', DH_Regions)
+    CM19.main(output_raster, geo_transform, 'int8', DH_Regions)
     
     if verbose:
         CM19.main(outRasterPath2, geo_transform, 'int32', labels)
