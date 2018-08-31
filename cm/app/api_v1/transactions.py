@@ -139,8 +139,7 @@ def compute():
     pix_threshold = data["pix_threshold"]
     DH_threshold = data["DH_threshold"]
 
-    reduction_factor = int(data["reduction_factor"])
-    print ('reduction_factor ',reduction_factor)
+
     input_raster_selection = UPLOAD_DIRECTORY+'/'+input_filename  # input raster selection
     filename = str(uuid.uuid4()) + '.tif'
     output_raster_selection = UPLOAD_DIRECTORY+'/'+filename  # output raster
