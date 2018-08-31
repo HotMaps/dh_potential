@@ -51,7 +51,7 @@ def array2raster(outRasterPath, geo_transform, dataType, array, noDataValue=0,
 
     # This can be used for dtype int8
     ct = gdal.ColorTable()
-    ct.SetColorEntry(0, (0,0,0,255))
+    ct.SetColorEntry(0, (0,0,0,0))
     ct.SetColorEntry(1, (110,220,110,255))
     outRaster.GetRasterBand(1).SetColorTable(ct)
 
