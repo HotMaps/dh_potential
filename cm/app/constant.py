@@ -9,7 +9,7 @@ CM_NAME = 'District Heating Potential'
 RPC_CM_ALIVE= 'rpc_queue_CM_ALIVE'
 RPC_Q = 'rpc_queue_CM_compute' # Do no change this value
 CM_ID = 2
-PORT = 5000 + CM_ID
+PORT = 80
 TRANFER_PROTOCOLE ='http://'
 
 INPUTS_CALCULATION_MODULE = [

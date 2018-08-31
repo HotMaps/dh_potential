@@ -3,7 +3,7 @@ from . import api
 from .. import SIGNATURE,CM_NAME
 import json
 import requests
-
+import logging
 import os
 from flask import send_from_directory
 import uuid
@@ -15,9 +15,12 @@ from app import CalculationModuleRpcClient
 from . import calculation_module
 
 
+LOG_FORMAT = ('%(levelname) -10s %(asctime)s %(name) -30s %(funcName) '
+              '-35s %(lineno) -5d: %(message)s')
+LOGGER = logging.getLogger(__name__)
 
 
-UPLOAD_DIRECTORY = '/var/hotmaps/cm_files_uploaded'
+UPLOAD_DIRECTORY = '/var/tmp'
 if not os.path.exists(UPLOAD_DIRECTORY):
     os.makedirs(UPLOAD_DIRECTORY)
     os.chmod(UPLOAD_DIRECTORY, 0o777)
@@ -66,15 +69,24 @@ def register():
 
 
 def savefile(filename,url):
-    print(url)
-    r = requests.get(url, stream=True)
+    print ('CM is Computing and will dowload files with url: ',url)
+    r = None
     path = None
-    print('image saved',r.status_code)
+    try:
+        r = requests.get(url, stream=True)
+    except:
+        LOGGER.error('API unable to download tif files')
+        print ('API unable to download tif files saved')
+
+    print ('image saved',r.status_code)
     if r.status_code == 200:
         path = os.path.join(UPLOAD_DIRECTORY, filename)
         with open(path, 'wb') as f:
             for chunk in r.iter_content(1024):
                 f.write(chunk)
+    else:
+        LOGGER.error('API unable to download tif files')
+        print ('unsable to download tif')
     return path
 
 @api.route('/compute/', methods=['POST'])
@@ -121,12 +133,15 @@ def compute():
     data = request.get_json()
     print(data)
     url_file = data["url_file"]
-    filename = data["filename"]
+    input_filename = data["filename"]
     # part to modify from the CM rpovider
         #parameters needed from the CM
     pix_threshold = data["pix_threshold"]
     DH_threshold = data["DH_threshold"]
-    input_raster_selection = savefile(filename,url_file) # input raster selection
+
+    reduction_factor = int(data["reduction_factor"])
+    print ('reduction_factor ',reduction_factor)
+    input_raster_selection = UPLOAD_DIRECTORY+'/'+input_filename  # input raster selection
     filename = str(uuid.uuid4()) + '.tif'
     output_raster_selection = UPLOAD_DIRECTORY+'/'+filename  # output raster
 
@@ -135,6 +150,12 @@ def compute():
     base_url =  request.base_url.replace("compute","files")
     url_download_raster = base_url + filename
     print('indicator {}'.format(indicator))
+
+    ip = socket.gethostbyname(socket.gethostname())
+    #base_url = constant.TRANFER_PROTOCOLE+ str(ip) +':'+str(constant.PORT)+'/computation-module/files/'
+    #url_download_raster = base_url + filename
+    print("indicator has {} ".format(indicator))
+
     response = {
         'values': [{
             'name': 'District heating potential in selected region',
@@ -142,8 +163,6 @@ def compute():
             'unit': 'MWh',}
 
         ],
-
-        'tiff_url': url_download_raster,
         'filename': filename
 
     }
