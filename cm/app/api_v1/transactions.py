@@ -136,8 +136,8 @@ def compute():
     input_filename = data["filename"]
     # part to modify from the CM rpovider
         #parameters needed from the CM
-    pix_threshold = data["pix_threshold"]
-    DH_threshold = data["DH_threshold"]
+    pix_threshold = int(data["pix_threshold"])
+    DH_threshold = int(data["DH_threshold"])
 
 
     input_raster_selection = UPLOAD_DIRECTORY+'/'+input_filename  # input raster selection
