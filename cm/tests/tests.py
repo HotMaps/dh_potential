@@ -30,13 +30,13 @@ class TestAPI(unittest.TestCase):
 
 
     def test_compute(self):
-        raster_file_path = 'tests/data/output_vrt.vrt'
+        raster_file_path = 'tests/data/output_vrt_test.vrt'
 
-        save_path = UPLOAD_DIRECTORY+"/output_vrt.vrt"
+        save_path = UPLOAD_DIRECTORY+"/output_vrt_test.vrt"
         copyfile(raster_file_path, save_path)
         # register the calculation module a
         payload = {"filename": "output_vrt.vrt",
-                   "url_file": "http://127.0.0.1:5001/computation-module/files/output_vrt.vrt",
+                   "url_file": "http://127.0.0.1:5001/computation-module/files/output_vrt_test.vrt",
                    "pix_threshold": 3,"DH_threshold": 30}
 
 
