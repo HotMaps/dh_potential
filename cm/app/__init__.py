@@ -60,7 +60,7 @@ def create_app(config_name):
     """Create swagger documentation"""
     swagger = Swagger(app)
     # apply configuration
-    cfg = os.path.join(os.getcwd(), 'config', config_name + '.py')
+    cfg = os.path.join(os.getcwd(), 'cm', 'config', config_name + '.py')
     app.config.from_pyfile(cfg)
 
     # initialize extensions
