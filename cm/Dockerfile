@@ -6,8 +6,9 @@
 
 FROM continuumio/miniconda3
 RUN conda update -y conda
+#RUN conda install python=3.6
 RUN conda config --add channels conda-forge
-RUN conda install -y gdal libgdal=2.0.0
+RUN conda install -y gdal rasterio geopandas
 
 MAINTAINER lesly Houndole <lesly.houndole@crem.ch>
 
