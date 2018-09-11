@@ -219,7 +219,9 @@ It's a default value for the input that will be displayed on the user interface
 **input min & max:**
 *****************
 This is the range of the input value needed, this will prevent from mistake in the calculation 
-         
+
+
+*******************************   
 ***OUTPUTS CALCULATION MODULE***
 *******************************
 The purpose of this part is to give developers the hability to build response and result under different format.
@@ -229,7 +231,16 @@ A JSON structure define all possible outputs available for the calculation modul
 
  **Ouputs examples:**
  ***************
+*Chart data*
+Return data to display a chart of different type.
+**type (string) :** Type of chart (possible values: 'bar', 'line', 'radar', 'pie', 'polarArea', 'bubble')
+**labels (string[]) :** x axis labels
+**datasets (Array):** set of data with there configuration
+  - **label (string) :** Serie's label
+  - **backgroundColor (string[]) :** Background color of each data
+  - **data (number[]) :** Each value for the serie
 
+```python
     CHART_DATA = {
         "chart": {
             "type": "bar",
@@ -237,7 +248,7 @@ A JSON structure define all possible outputs available for the calculation modul
                 "labels": ["Default dataset","FR569","DE562","AT130","FR125"],
                 "datasets": [
                     {
-                        "label": "Heat demand reduction (Comparaison)",
+                        "label": "Calculation module chart",
                         "backgroundColor": [ "#3e95cd","#8e5ea2","#3cba9f","#e8c3b9","#c45850" ],
                         "data": [2478,5267,734,784,433]
                     }
@@ -245,10 +256,61 @@ A JSON structure define all possible outputs available for the calculation modul
             }
         }
     }
-
-   
-
-
+```
+*Indicator data*
+Return indicators that can be displayed as a table on the right panel
+**values (Array):** Each value for the serie
+ - **unit (string):** Unit of the indicator
+ - **name (string):** Name of the indicator
+ - **value (number):** Value of the indicator
+```python
+    INDICATOR_DATA = {
+            "indicators": {
+                "values": [
+                    {"unit": "MWh","name": "heat_consumption","value": 562489},
+                    {"unit": "cells","name": "count_cell_heat","value": 999999},
+                    {"unit": "MWh/ha","name": "heat_density","value": 120000}
+                ],
+                "name": "test_calculation_module"
+            }
+        }
+```
+*Raster data*
+Return the url of the outputed raster (Tiled raster)
+- **url (string):** Url of the raster file (Tiled raster path)
+- **name (string):** Name of the raster file
+```python
+    RASTER_DATA = {
+            "raster": {
+                "url": "http://urloftheraster",
+                "name": "Raster output from CM 1"
+            }
+    }
+```
+Vector data
+Return the url of the outputed vector (Geojson raster)
+- **url (string):** Url of the raster file (Tiled raster path)
+- **name (string):** Name of the vector file
+```python
+    VECTOR_DATA = {
+            "vector": {
+                "url": "http://urlofthevector",
+                "name": "Vector output from CM 1"
+            }
+        }
+```
+Output results
+Result of the output.
+```python
+    result = {
+        "outputs":[
+            CHART_DATA,
+            INDICATOR_DATA,
+            RASTER_DATA,
+            VECTOR_DATA,
+        ]
+    }
+```
 
 ### Application Structure:
 
