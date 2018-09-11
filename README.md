@@ -229,9 +229,9 @@ A JSON structure define all possible outputs available for the calculation modul
 
 
 
- **Ouputs examples:**
+ **Graphic:**
  ***************
-*Chart data* - Return data to display a chart of different type.
+*Graphic configuration* - Return data to display a chart of different type.
 
 **type (string) :** Type of chart (possible values: 'bar', 'line', 'radar', 'pie', 'polarArea', 'bubble')
 
@@ -239,25 +239,25 @@ A JSON structure define all possible outputs available for the calculation modul
 
 **datasets (Array):** set of data with there configuration
   - **label (string) :** Serie's label
-  - **backgroundColor (string[]) :** Background color of each data
+  - **backgroundColor (string[]) :** Background color of each value to display
   - **data (number[]) :** Each value for the serie
 
-```python
-    CHART_DATA = {
-        "chart": {
-            "type": "bar",
-            "data": {
-                "labels": ["Default dataset","FR569","DE562","AT130","FR125"],
-                "datasets": [
-                    {
-                        "label": "Calculation module chart",
-                        "backgroundColor": [ "#3e95cd","#8e5ea2","#3cba9f","#e8c3b9","#c45850" ],
-                        "data": [2478,5267,734,784,433]
-                    }
-                ]
-            }
+```json
+{
+    "chart": {
+        "type": "bar",
+        "data": {
+            "labels": ["Default dataset","FR569","DE562","AT130","FR125"],
+            "datasets": [
+                {
+                    "label": "Calculation module chart",
+                    "backgroundColor": [ "#3e95cd","#8e5ea2","#3cba9f","#e8c3b9","#c45850" ],
+                    "data": [2478,5267,734,784,433]
+                }
+            ]
         }
     }
+}
 ```
 *Indicator data* - Return indicators that can be displayed as a table on the right panel
 
@@ -288,7 +288,7 @@ A JSON structure define all possible outputs available for the calculation modul
             }
     }
 ```
-Vector data - Return the url of the outputed vector (Geojson raster)
+*Vector data* - Return the url of the outputed vector (Geojson raster)
 - **url (string):** Url of the raster file (Tiled raster path)
 - **name (string):** Name of the vector file
 ```python
