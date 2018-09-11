@@ -220,6 +220,35 @@ It's a default value for the input that will be displayed on the user interface
 *****************
 This is the range of the input value needed, this will prevent from mistake in the calculation 
          
+***OUTPUTS CALCULATION MODULE***
+*******************************
+The purpose of this part is to give developers the hability to build response and result under different format.
+A JSON structure define all possible outputs available for the calculation module.
+
+
+
+ **Ouputs examples:**
+ ***************
+
+    CHART_DATA = {
+        "chart": {
+            "type": "bar",
+            "data": {
+                "labels": ["Default dataset","FR569","DE562","AT130","FR125"],
+                "datasets": [
+                    {
+                        "label": "Heat demand reduction (Comparaison)",
+                        "backgroundColor": [ "#3e95cd","#8e5ea2","#3cba9f","#e8c3b9","#c45850" ],
+                        "data": [2478,5267,734,784,433]
+                    }
+                ]
+            }
+        }
+    }
+
+   
+
+
 
 ### Application Structure:
 
