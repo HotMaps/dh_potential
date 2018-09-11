@@ -231,10 +231,12 @@ A JSON structure define all possible outputs available for the calculation modul
 
  **Ouputs examples:**
  ***************
-*Chart data*
-Return data to display a chart of different type.
+*Chart data* - Return data to display a chart of different type.
+
 **type (string) :** Type of chart (possible values: 'bar', 'line', 'radar', 'pie', 'polarArea', 'bubble')
+
 **labels (string[]) :** x axis labels
+
 **datasets (Array):** set of data with there configuration
   - **label (string) :** Serie's label
   - **backgroundColor (string[]) :** Background color of each data
@@ -257,8 +259,8 @@ Return data to display a chart of different type.
         }
     }
 ```
-*Indicator data*
-Return indicators that can be displayed as a table on the right panel
+*Indicator data* - Return indicators that can be displayed as a table on the right panel
+
 **values (Array):** Each value for the serie
  - **unit (string):** Unit of the indicator
  - **name (string):** Name of the indicator
@@ -275,8 +277,7 @@ Return indicators that can be displayed as a table on the right panel
             }
         }
 ```
-*Raster data*
-Return the url of the outputed raster (Tiled raster)
+*Raster data* - Return the url of the outputed raster (Tiled raster)
 - **url (string):** Url of the raster file (Tiled raster path)
 - **name (string):** Name of the raster file
 ```python
@@ -287,8 +288,7 @@ Return the url of the outputed raster (Tiled raster)
             }
     }
 ```
-Vector data
-Return the url of the outputed vector (Geojson raster)
+Vector data - Return the url of the outputed vector (Geojson raster)
 - **url (string):** Url of the raster file (Tiled raster path)
 - **name (string):** Name of the vector file
 ```python
@@ -299,8 +299,7 @@ Return the url of the outputed vector (Geojson raster)
             }
         }
 ```
-Output results
-Result of the output.
+Output results - Result of the output
 ```python
     result = {
         "outputs":[
