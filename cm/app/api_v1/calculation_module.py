@@ -2,13 +2,15 @@ import os
 import sys
 path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.
                                                        abspath(__file__))))
+
+import uuid
 if path not in sys.path:
     sys.path.append(path)
 import my_calculation_module_directory.CM.CM_TUW4.run_cm as CM4
 
 
 
-def calculation(input_raster_selection, pix_threshold, DH_threshold, output_raster):
+def calculation(output_directory,inputs_raster_selection, pix_threshold, DH_threshold):
 
     """ def calculation()"""
     '''
@@ -31,6 +33,9 @@ def calculation(input_raster_selection, pix_threshold, DH_threshold, output_rast
     return {'F13_out_raster_path_0': outRasterPath,
             'F13_out_shapefile_path_0': outShapefile}
     '''
+    filename = str(uuid.uuid4()) + '.tif'
+    output_raster_path1 = output_directory+'/'+filename  # output raster
 
-    total_potential = CM4.main(input_raster_selection, pix_threshold, DH_threshold, output_raster)
+    input_raster_selection =  inputs_raster_selection["heat_tot_curr_density"]
+    total_potential = CM4.main(input_raster_selection, pix_threshold, DH_threshold, output_raster_path1)
     return total_potential
