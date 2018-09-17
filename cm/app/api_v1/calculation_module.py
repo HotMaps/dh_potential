@@ -4,6 +4,8 @@ path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.
                                                        abspath(__file__))))
 
 import uuid
+from ..helper import generate_output_file_tif
+""" Entry point of the calculation module function"""
 if path not in sys.path:
     sys.path.append(path)
 import my_calculation_module_directory.CM.CM_TUW4.run_cm as CM4
