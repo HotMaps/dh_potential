@@ -2,9 +2,8 @@ import os
 import sys
 path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.
                                                        abspath(__file__))))
-
-import uuid
 from ..helper import generate_output_file_tif
+from ..helper import generate_output_file_with_extension
 """ Entry point of the calculation module function"""
 if path not in sys.path:
     sys.path.append(path)
@@ -24,20 +23,19 @@ def calculation(output_directory,inputs_raster_selection, pix_threshold, DH_thre
     Outputs:
         DH_Regions: contains binary values (no units) showing coherent areas
     '''
-    #TODO dont need to create any directory
-    #TODO dont change the name of the main directory for your calculation module
-    """output_dir = path + os.dir + 'Outputs'
-    if not os.path.exists(output_dir):
-        os.mkdir(output_dir)"""
-    '''
-    outRasterPath, outShapefile = CM4.main(heat_density_map, pix_threshold,
-                                           DH_threshold, output_dir)
-    return {'F13_out_raster_path_0': outRasterPath,
-            'F13_out_shapefile_path_0': outShapefile}
-    '''
-    filename = str(uuid.uuid4()) + '.tif'
-    output_raster_path1 = output_directory+'/'+filename  # output raster
+    output_raster1 = generate_output_file_tif(output_directory)
+    output_raster2 = generate_output_file_tif(output_directory)
+    output_shp1 = generate_output_file_with_extension(output_directory, ".shp")
+    output_shp2 = generate_output_file_with_extension(output_directory, ".shp")
 
     input_raster_selection =  inputs_raster_selection["heat_tot_curr_density"]
-    total_potential = CM4.main(input_raster_selection, pix_threshold, DH_threshold, output_raster_path1)
-    return total_potential
+    total_potential, graphics = CM4.main(input_raster_selection, pix_threshold,
+                                         DH_threshold, output_raster1,
+                                         output_raster2, output_shp1,
+                                         output_shp2)
+    result = dict()
+    result['name'] = 'CM District Heating Potential'
+    result['indicator'] = [{"unit": "GWh", "name": "Total district heating potential [GWh] in the region","value": total_potential},
+                           {"unit": "GWh", "name": "test","value": total_potential}]
+    result['graphics'] = graphics
+    return result

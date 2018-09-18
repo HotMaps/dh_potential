@@ -16,10 +16,10 @@ INPUTS_CALCULATION_MODULE = [
     {'input_name': 'Min. heat demand in hectare',
      'input_type': 'input',
      'input_parameter_name': 'pix_threshold',
-     'input_value': 10,
-     'input_unit': 'GWh/km2',
-     'input_min': 1,
-     'input_max': 100,
+     'input_value': 100,
+     'input_unit': 'MWh/ha',
+     'input_min': 0,
+     'input_max': 1000,
      'cm_id': CM_ID
      },
     {'input_name': 'Min. heat demand in a DH area',
@@ -27,7 +27,7 @@ INPUTS_CALCULATION_MODULE = [
      'input_parameter_name': 'DH_threshold',
      'input_value': 30,
      'input_unit': 'GWh/year',
-     'input_min': 10,
+     'input_min': 0,
      'input_max': 500,
      'cm_id': CM_ID
      }

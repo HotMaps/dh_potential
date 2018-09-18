@@ -29,15 +29,10 @@ def array2raster(outRasterPath, geo_transform, dataType, array, noDataValue=0,
                    "uint32":    gdal.GDT_UInt32,
                    "float32":   gdal.GDT_Float32,
                    "float64":   gdal.GDT_Float64}
-    new_raster_path = outRasterPath
-    i = 1
-    while os.path.exists(new_raster_path):
-        new_raster_path = outRasterPath[:-4] + ' (' + str(i) + ').tif'
-        i = i + 1
     cols = array.shape[1]
     rows = array.shape[0]
     driver = gdal.GetDriverByName('GTiff')
-    outRaster = driver.Create(new_raster_path, cols, rows, 1,
+    outRaster = driver.Create(outRasterPath, cols, rows, 1,
                               dict_varTyp[dataType], ['compress=DEFLATE',
                                                       'TILED=YES',
                                                       'TFW=YES',
@@ -51,10 +46,9 @@ def array2raster(outRasterPath, geo_transform, dataType, array, noDataValue=0,
 
     # This can be used for dtype int8
     ct = gdal.ColorTable()
-    ct.SetColorEntry(0, (0,0,0,0))
-    ct.SetColorEntry(1, (110,220,110,255))
+    ct.SetColorEntry(noDataValue, (0, 0, 0, 255))
+    ct.SetColorEntry(1, (110, 220, 110, 255))
     outRaster.GetRasterBand(1).SetColorTable(ct)
-
 
     outRaster.GetRasterBand(1).WriteArray(array)
     outRaster.FlushCache()

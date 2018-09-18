@@ -121,8 +121,6 @@ def DHPotential(DH_Regions, heat_density_map):
 
 
 def DHReg(heat_density_map, pix_threshold, DH_threshold, in_orig=None):
-    # Factor 10 for conversion from GWh/km2 to MWh/ha
-    pix_threshold = pix_threshold * 10
     # Factor 1000 for conversion from GWh/a to MWh/a
     DH_threshold = DH_threshold * 1000
     if isinstance(heat_density_map, np.ndarray):

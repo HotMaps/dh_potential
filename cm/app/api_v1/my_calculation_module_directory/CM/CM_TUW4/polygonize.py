@@ -12,14 +12,13 @@ if path not in sys.path:
 from CM.CM_TUW1.read_raster import raster_array as RA
 
 
-def add_label_field(dh_bool_raster, label_raster, outPolygon, heat_dem_coh,
-                    epsg=3035):
+def add_label_field(dh_bool_raster, label_raster, output_shp1, output_shp2,
+                    heat_dem_coh, epsg=3035):
     label_list = []
-    outShapefile = outPolygon[:-12] + 'label.shp'
     outDriver = ogr.GetDriverByName("ESRI Shapefile")
     # Remove output shapefile if it already exists
-    if os.path.exists(outShapefile):
-        outDriver.DeleteDataSource(outShapefile)
+    if os.path.exists(output_shp2):
+        outDriver.DeleteDataSource(output_shp2)
     bool_arr, gt = RA(dh_bool_raster, return_gt=True)
     label_arr = RA(label_raster)
     numLabels = np.max(label_arr)
@@ -33,7 +32,7 @@ def add_label_field(dh_bool_raster, label_raster, outPolygon, heat_dem_coh,
         yl = round(Y0 - 100 * item[0], 1)
         label_list.append((xl, yl))
     inDriver = ogr.GetDriverByName("ESRI Shapefile")
-    inDataSource = inDriver.Open(outPolygon, 0)
+    inDataSource = inDriver.Open(output_shp1, 0)
     inLayer = inDataSource.GetLayer()
     srs = osr.SpatialReference()
     srs.ImportFromEPSG(epsg)
@@ -41,7 +40,7 @@ def add_label_field(dh_bool_raster, label_raster, outPolygon, heat_dem_coh,
     geom_typ_dict = {1: ogr.wkbPoint, 2: ogr.wkbLineString, 3: ogr.wkbPolygon}
     # Create the output Layer
     outDriver = ogr.GetDriverByName("ESRI Shapefile")
-    outDataSource = outDriver.CreateDataSource(outShapefile)
+    outDataSource = outDriver.CreateDataSource(output_shp2)
     outLayer = outDataSource.CreateLayer("newSHP", srs,
                                          geom_type=geom_typ_dict[geom_typ])
     Fields = ['label', 'pot_DH']
@@ -77,11 +76,11 @@ def add_label_field(dh_bool_raster, label_raster, outPolygon, heat_dem_coh,
     # Save and close DataSources
     inDataSource = None
     outDataSource = None
-    if os.path.exists(outPolygon):
-        outDriver.DeleteDataSource(outPolygon)
+    if os.path.exists(output_shp1):
+        outDriver.DeleteDataSource(output_shp1)
 
 
-def polygonize(dh_bool_raster, label_arr, outPolygon, heat_dem_coh,
+def polygonize(dh_bool_raster, label_arr, output_shp1, output_shp2, heat_dem_coh,
                epsg=3035):
     # save the coherent areas in shapefile format
     raster = gdal.Open(dh_bool_raster)
@@ -89,13 +88,14 @@ def polygonize(dh_bool_raster, label_arr, outPolygon, heat_dem_coh,
     srs = osr.SpatialReference()
     srs.ImportFromEPSG(epsg)
     shpDriver = ogr.GetDriverByName('ESRI Shapefile')
-    if os.path.exists(outPolygon):
-        shpDriver.DeleteDataSource(outPolygon)
-    outDataSource = shpDriver.CreateDataSource(outPolygon)
+    if os.path.exists(output_shp1):
+        shpDriver.DeleteDataSource(output_shp1)
+    outDataSource = shpDriver.CreateDataSource(output_shp1)
     outLayer = outDataSource.CreateLayer('outPolygon', srs,
                                          geom_type=ogr.wkbPolygon)
     # polygonize
     gdal.Polygonize(band, band, outLayer, 1, options=["8CONNECTED=8"])
     # save layer
     outDataSource = outLayer = band = None
-    add_label_field(dh_bool_raster, label_arr, outPolygon, heat_dem_coh)
+    add_label_field(dh_bool_raster, label_arr, output_shp1, output_shp2,
+                    heat_dem_coh)
