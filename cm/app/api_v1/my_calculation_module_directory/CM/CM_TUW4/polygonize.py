@@ -93,7 +93,7 @@ def polygonize(dh_bool_raster, label_arr, output_shp1, output_shp2, heat_dem_coh
     outDataSource = shpDriver.CreateDataSource(output_shp1)
     outLayer = outDataSource.CreateLayer('outPolygon', srs,
                                          geom_type=ogr.wkbPolygon)
-    newField = ogr.FieldDefn('MYFLD', ogr.OFTInteger)
+    newField = ogr.FieldDefn('FID', ogr.OFTInteger)
     outLayer.CreateField(newField)
     # polygonize
     gdal.Polygonize(band, band, outLayer, 0, options=["8CONNECTED=8"])
