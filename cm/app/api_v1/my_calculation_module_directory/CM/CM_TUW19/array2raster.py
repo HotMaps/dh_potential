@@ -44,11 +44,16 @@ def array2raster(outRasterPath, geo_transform, dataType, array, noDataValue=0,
     outRaster.SetProjection(outRasterSRS.ExportToWkt())
     outRaster.GetRasterBand(1).SetNoDataValue(noDataValue)
 
-    # This can be used for dtype int8
-    ct = gdal.ColorTable()
-    ct.SetColorEntry(noDataValue, (0, 0, 0, 255))
-    ct.SetColorEntry(1, (110, 220, 110, 255))
-    outRaster.GetRasterBand(1).SetColorTable(ct)
+    if dataType == 'int8' or dataType == 'uint16':
+        # This can be used for dtype int8
+        ct = gdal.ColorTable()
+        ct.SetColorEntry(noDataValue, (0, 0, 0, 255))
+        ct.SetColorEntry(1, (13, 197, 214, 78))
+        '''
+        for i in range(1, 1+np.max(array)):
+            ct.SetColorEntry(i, tuple(np.random.choice(range(256), size=4)))
+        '''
+        outRaster.GetRasterBand(1).SetColorTable(ct)
 
     outRaster.GetRasterBand(1).WriteArray(array)
     outRaster.FlushCache()

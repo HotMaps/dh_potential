@@ -13,7 +13,6 @@ if not os.path.exists(UPLOAD_DIRECTORY):
 
 class TestAPI(unittest.TestCase):
 
-
     def setUp(self):
         self.app = create_app(os.environ.get('FLASK_CONFIG', 'development'))
         self.ctx = self.app.app_context()
@@ -25,19 +24,17 @@ class TestAPI(unittest.TestCase):
 
         self.ctx.pop()
 
-
-
-
-
     def test_compute(self):
         raster_file_path = 'tests/data/raster_for_test.tif'
-
+        # simulate copy from HTAPI to CM
         save_path = UPLOAD_DIRECTORY+"/raster_for_test.tif"
         copyfile(raster_file_path, save_path)
+
+        inputs_raster_selection = {}
+        inputs_raster_selection["heat_tot_curr_density"]  = save_path
         # register the calculation module a
-        payload = {"filename": "raster_for_test.tif",
-                   "url_file": "http://127.0.0.1:5001/computation-module/files/raster_for_test.tif",
-                   "pix_threshold": 3,"DH_threshold": 30}
+        payload = {"inputs_raster_selection": inputs_raster_selection,
+                   "pix_threshold": 100,"DH_threshold": 30}
 
 
         rv, json = self.client.post('computation-module/compute/', data=payload)

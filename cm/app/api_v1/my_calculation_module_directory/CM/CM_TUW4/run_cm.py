@@ -29,29 +29,18 @@ def main(heat_density_map, pix_threshold, DH_threshold, output_raster1,
 
     DHPot, labels = DHP.DHPotential(DH_Regions, heat_density_map)
     
-    graphic_test1 = {
-            "type": "bar",
-            "data": {
-                    "labels": [str(x) for x in range(len(DHPot))],
-                    "datasets": [{
-                            "label": "Calculation module chart",
-                            "backgroundColor": ["#3e95cd"]*len(DHPot),
-                            "data": DHPot
-                            }]
+    graphics  = [
+            {
+                    "type": "bar",
+                    "data": {
+                            "labels": [str(x) for x in range(len(DHPot))],
+                            "datasets": [{
+                                    "label": "Calculation module chart",
+                                    "backgroundColor": ["#3e95cd"]*len(DHPot),
+                                    "data": list(DHPot)
+                                    }]
                     }
-                }
-    graphic_test2 = {
-            "type": "bar",
-            "data": {
-                    "labels": [str(x) for x in range(len(DHPot))],
-                    "datasets": [{
-                            "label": "Calculation module chart",
-                            "backgroundColor": ["#3e95cd"]*len(DHPot),
-                            "data": DHPot
-                            }]
-                    }
-                }
-    graphics = [graphic_test1, graphic_test2]
+                }]
     
     
     CM19.main(output_raster1, geo_transform, 'int8', DH_Regions)

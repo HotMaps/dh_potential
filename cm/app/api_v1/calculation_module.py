@@ -3,7 +3,7 @@ import sys
 path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.
                                                        abspath(__file__))))
 from ..helper import generate_output_file_tif
-from ..helper import generate_output_file_with_extension
+from ..helper import generate_output_file_shp
 """ Entry point of the calculation module function"""
 if path not in sys.path:
     sys.path.append(path)
@@ -25,8 +25,8 @@ def calculation(output_directory,inputs_raster_selection, pix_threshold, DH_thre
     '''
     output_raster1 = generate_output_file_tif(output_directory)
     output_raster2 = generate_output_file_tif(output_directory)
-    output_shp1 = generate_output_file_with_extension(output_directory, ".shp")
-    output_shp2 = generate_output_file_with_extension(output_directory, ".shp")
+    output_shp1 = generate_output_file_shp(output_directory)
+    output_shp2 = generate_output_file_shp(output_directory)
 
     input_raster_selection =  inputs_raster_selection["heat_tot_curr_density"]
     total_potential, graphics = CM4.main(input_raster_selection, pix_threshold,
@@ -35,7 +35,7 @@ def calculation(output_directory,inputs_raster_selection, pix_threshold, DH_thre
                                          output_shp2)
     result = dict()
     result['name'] = 'CM District Heating Potential'
-    result['indicator'] = [{"unit": "GWh", "name": "Total district heating potential [GWh] in the region","value": total_potential},
+    result['indicator'] = [{"unit": "GWh", "name": "Total district heating potential in GWh in the region","value": total_potential},
                            {"unit": "GWh", "name": "test","value": total_potential}]
     result['graphics'] = graphics
     return result

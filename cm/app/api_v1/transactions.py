@@ -1,15 +1,12 @@
-from flask import request, abort, jsonify ,url_for, g,flash
+from flask import request, abort, jsonify, url_for, g, flash
 from . import api
-from .. import SIGNATURE,CM_NAME
+from .. import SIGNATURE
 import json
 import requests
 import logging
 import os
 from flask import send_from_directory
-import uuid
 from app import constant
-from app.constant import PORT,RPC_Q
-from app.api_v1 import errors
 import socket
 from app import CalculationModuleRpcClient
 from . import calculation_module
@@ -61,8 +58,6 @@ def register():
     signature_final["cm_url"] = base_url
     payload = json.dumps(signature_final)
     response = calculation_module_rpc.call(payload)
-    print ('CM will finish register ')
-
     return response
 
 
@@ -92,31 +87,25 @@ def savefile(filename,url):
 @api.route('/compute/', methods=['POST'])
 def compute():
     #TODO: this documentation must be change by the product ower
-
-    """ compute the Calculation module (CM)from the main web services (MWS)-
+    """ compute the Calculation module (CM) from the main web services (MWS)-
     the main web service is sending
         ---
        parameters:
-          - name: filename
+          - name: inputs_raster_selection
             in: path
             type: string
             required: true
-            default: 6d998d5c-5139-4f77-b0b3-8ee078e4527c.tif
-          - name: url_file
-            in: path
-            type: string
-            required: true
-            default: http://127.0.0.1:5000/api/cm/files/6d998d5c-5139-4f77-b0b3-8ee078e4527c.tif
+            default: '/var/hotmaps/cm_files_uploaded/inputs_raster_selection.tif'
           - name: pix_threshold
             in: path
             type: integer
             required: true
-            default: 1
+            default: 100
           - name: DH_threshold
             in: path
             type: integer
             required: true
-            default: 1
+            default: 30
 
        definitions:
          Color:
@@ -132,39 +121,27 @@ def compute():
     #import ipdb; ipdb.set_trace()
     data = request.get_json()
     print(data)
-    url_file = data["url_file"]
-    input_filename = data["filename"]
+
     # part to modify from the CM rpovider
         #parameters needed from the CM
     pix_threshold = int(data["pix_threshold"])
     DH_threshold = int(data["DH_threshold"])
 
+    inputs_raster_selection = data["inputs_raster_selection"]
+    
+    
+    
 
-    input_raster_selection = UPLOAD_DIRECTORY+'/'+input_filename  # input raster selection
-    filename = str(uuid.uuid4()) + '.tif'
-    output_raster_selection = UPLOAD_DIRECTORY+'/'+filename  # output raster
 
+    output_directory = UPLOAD_DIRECTORY
     # call the calculation module function
-    indicator = calculation_module.calculation(input_raster_selection, pix_threshold, DH_threshold, output_raster_selection)
-    base_url =  request.base_url.replace("compute","files")
-    url_download_raster = base_url + filename
-    print('indicator {}'.format(indicator))
-
-    ip = socket.gethostbyname(socket.gethostname())
-    #base_url = constant.TRANFER_PROTOCOLE+ str(ip) +':'+str(constant.PORT)+'/computation-module/files/'
-    #url_download_raster = base_url + filename
-    print("indicator has {} ".format(indicator))
+    result = calculation_module.calculation(output_directory, inputs_raster_selection, pix_threshold, DH_threshold)
 
     response = {
-        'values': [{
-            'name': 'District heating potential in selected region',
-            'value': str(indicator),
-            'unit': 'MWh',}
+            'result': result
+            }
 
-        ],
-        'filename': filename
-
-    }
+    # convert response dict to json
     response = json.dumps(response)
     return response
 
