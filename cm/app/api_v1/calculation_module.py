@@ -36,7 +36,7 @@ def calculation(output_directory,inputs_raster_selection, pix_threshold, DH_thre
     result = dict()
     result['name'] = 'CM District Heating Potential'
     result["raster_layers"]=[{"name": "district heating coherent areas","path": output_raster1}]
-    result["shapefiles"]=[{"name": "shapefile of coherent areas with their potential","path": output_shp2}]
+    result["vector_layers"]=[{"name": "shapefile of coherent areas with their potential","path": output_shp2}]
     result['indicator'] = [{"unit": "GWh", "name": "Total district heating potential in GWh in the region","value": total_potential},
                            {"unit": "GWh", "name": "test","value": total_potential}]
     result['graphics'] = graphics
