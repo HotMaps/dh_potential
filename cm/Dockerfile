@@ -44,7 +44,7 @@ RUN pip install gunicorn
 
 
 
-EXPOSE 5002
+EXPOSE 80
 
 # Start server
 
