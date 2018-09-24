@@ -31,11 +31,13 @@ class TestAPI(unittest.TestCase):
         copyfile(raster_file_path, save_path)
 
         inputs_raster_selection = {}
+        inputs_parameter_selection = {}
+        inputs_parameter_selection["pix_threshold"] = 100
+        inputs_parameter_selection["DH_threshold"] = 30
         inputs_raster_selection["heat_tot_curr_density"]  = save_path
         # register the calculation module a
         payload = {"inputs_raster_selection": inputs_raster_selection,
-                   "pix_threshold": 100,"DH_threshold": 30}
-
+                   "inputs_parameter_selection": inputs_parameter_selection}
 
         rv, json = self.client.post('computation-module/compute/', data=payload)
 

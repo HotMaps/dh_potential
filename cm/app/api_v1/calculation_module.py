@@ -11,7 +11,7 @@ import my_calculation_module_directory.CM.CM_TUW4.run_cm as CM4
 
 
 
-def calculation(output_directory,inputs_raster_selection, pix_threshold, DH_threshold):
+def calculation(output_directory, inputs_raster_selection, inputs_parameter_selection):
 
     """ def calculation()"""
     '''
@@ -23,6 +23,10 @@ def calculation(output_directory,inputs_raster_selection, pix_threshold, DH_thre
     Outputs:
         DH_Regions: contains binary values (no units) showing coherent areas
     '''
+
+    pix_threshold = int(inputs_parameter_selection["pix_threshold"])
+    DH_threshold = int(inputs_parameter_selection["DH_threshold"])
+
     output_raster1 = generate_output_file_tif(output_directory)
     output_raster2 = generate_output_file_tif(output_directory)
     output_shp1 = generate_output_file_shp(output_directory)
@@ -35,6 +39,8 @@ def calculation(output_directory,inputs_raster_selection, pix_threshold, DH_thre
                                          output_shp2)
     result = dict()
     result['name'] = 'CM District Heating Potential'
+    result["raster_layers"]=[{"name": "district heating coherent areas","path": output_raster1}]
+    result["vector_layers"]=[{"name": "shapefile of coherent areas with their potential","path": output_shp2}]
     result['indicator'] = [{"unit": "GWh", "name": "Total district heating potential in GWh in the region","value": total_potential},
                            {"unit": "GWh", "name": "test","value": total_potential}]
     result['graphics'] = graphics
