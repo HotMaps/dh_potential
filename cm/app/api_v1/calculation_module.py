@@ -4,6 +4,7 @@ path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.
                                                        abspath(__file__))))
 from ..helper import generate_output_file_tif
 from ..helper import generate_output_file_shp
+from ..helper import create_zip_shapefiles
 """ Entry point of the calculation module function"""
 if path not in sys.path:
     sys.path.append(path)
@@ -23,6 +24,9 @@ def calculation(output_directory, inputs_raster_selection, inputs_parameter_sele
     Outputs:
         DH_Regions: contains binary values (no units) showing coherent areas
     '''
+    print ('*******************************CALCULATION*******************************************')
+    print ('input_raster_selectio_xxxxn', inputs_raster_selection)
+    input_raster_selection =  inputs_raster_selection["heat_tot_curr_density_tif"]
 
     pix_threshold = int(inputs_parameter_selection["pix_threshold"])
     DH_threshold = int(inputs_parameter_selection["DH_threshold"])
@@ -32,11 +36,20 @@ def calculation(output_directory, inputs_raster_selection, inputs_parameter_sele
     output_shp1 = generate_output_file_shp(output_directory)
     output_shp2 = generate_output_file_shp(output_directory)
 
-    input_raster_selection =  inputs_raster_selection["heat_tot_curr_density"]
+
+
     total_potential, graphics = CM4.main(input_raster_selection, pix_threshold,
                                          DH_threshold, output_raster1,
                                          output_raster2, output_shp1,
                                          output_shp2)
+
+    #need to zip the directory for a shapefile
+    print ('wiill zip', output_shp2)
+
+    output_shp2 = create_zip_shapefiles(output_directory, output_shp2)
+
+
+    print ('shape_file', output_shp2)
     result = dict()
     result['name'] = 'CM District Heating Potential'
     result["raster_layers"]=[{"name": "district heating coherent areas","path": output_raster1}]
