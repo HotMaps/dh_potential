@@ -40,7 +40,10 @@ SIGNATURE = {
     "category": "Buildings",
     "cm_name": CM_NAME,
     "layers_needed": [
-        "heat_tot_curr_density",
+        "heat_tot_curr_density_tif",
+    ],
+    "type_layer_needed": [
+        "heat",
     ],
     "cm_url": "Do not add something",
     "cm_description": "This computation module calculates district heating potential within the selected region",

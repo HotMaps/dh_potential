@@ -26,17 +26,9 @@ RUN apt-get update \
     build-essential \
     software-properties-common \
     wget \
-    gdal-bin \
     ca-certificates \
     gcc \
     git \
-    libpq-dev \
-    libgeos-dev \
-    libgdal-dev \
-    python-gdal \
-    make \
-    python-pip \
-    ssh \
     && apt-get autoremove \
     && apt-get clean
 
