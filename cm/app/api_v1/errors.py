@@ -1,7 +1,7 @@
 from flask import jsonify
 
 from . import api
-from ..exceptions import ValidationError
+from ..exceptions import ValidationError,EmptyRasterError
 
 
 @api.errorhandler(ValidationError)
@@ -9,6 +9,14 @@ def bad_request(e):
     response = jsonify({'status': 400, 'error': 'bad request',
                         'message': e.args[0]})
     response.status_code = 400
+    return response
+
+
+@api.errorhandler(EmptyRasterError)
+def bad_request(e):
+    response = jsonify({'status': 433, 'error': 'this Raster is empty',
+                        'message': 'please provide data for this layer'})
+    response.status_code = 433
     return response
 
 @api.errorhandler(404)

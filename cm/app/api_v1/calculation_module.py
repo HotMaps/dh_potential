@@ -5,6 +5,7 @@ path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 from ..helper import generate_output_file_tif
 from ..helper import generate_output_file_shp
 from ..helper import create_zip_shapefiles
+from ..exceptions import ValidationError,EmptyRasterError
 """ Entry point of the calculation module function"""
 if path not in sys.path:
     sys.path.append(path)
@@ -26,7 +27,10 @@ def calculation(output_directory, inputs_raster_selection, inputs_parameter_sele
     '''
     print ('*******************************CALCULATION*******************************************')
     print ('input_raster_selectio_xxxxn', inputs_raster_selection)
-    input_raster_selection =  inputs_raster_selection["heat_tot_curr_density_tif"]
+    try:
+        input_raster_selection =  inputs_raster_selection["heat_tot_curr_density_tif"]
+    except:
+        raise EmptyRasterError
 
     pix_threshold = int(inputs_parameter_selection["pix_threshold"])
     DH_threshold = int(inputs_parameter_selection["DH_threshold"])
@@ -35,7 +39,6 @@ def calculation(output_directory, inputs_raster_selection, inputs_parameter_sele
     output_raster2 = generate_output_file_tif(output_directory)
     output_shp1 = generate_output_file_shp(output_directory)
     output_shp2 = generate_output_file_shp(output_directory)
-
 
 
     total_potential, graphics = CM4.main(input_raster_selection, pix_threshold,
