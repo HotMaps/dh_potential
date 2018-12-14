@@ -21,10 +21,10 @@ from CM.CM_TUW1.read_raster import raster_array as RA
 The input for this calculation module is "heat density map" with [MWh/ha]
 unit. The output of this calculation module is set of connected pixels to
 which the potential of that connected pixels in [GWh] is assigned.
-pixel_threshold in [GWh/km2]
+pixel_threshold in [MWh/ha]
 DH_threshold in [GWh/year]
 '''
-import pdb
+
 
 def DHRegions(DH, DH_threshold):
     '''
