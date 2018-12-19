@@ -28,7 +28,7 @@ def calculation(output_directory, inputs_raster_selection, inputs_parameter_sele
     print ('*******************************CALCULATION*******************************************')
     print ('input_raster_selectio_xxxxn', inputs_raster_selection)
     try:
-        input_raster_selection =  inputs_raster_selection["heat_tot_curr_density_tif"]
+        input_raster_selection =  inputs_raster_selection["heat_tot_curr_density"]
     except:
         raise EmptyRasterError
 
@@ -55,7 +55,7 @@ def calculation(output_directory, inputs_raster_selection, inputs_parameter_sele
     print ('shape_file', output_shp2)
     result = dict()
     result['name'] = 'CM District Heating Potential'
-    result["raster_layers"]=[{"name": "district heating coherent areas","path": output_raster1, "type": "custome", "legend": [[1, 46, 154, 88]]}]
+    result["raster_layers"]=[{"name": "district heating coherent areas","path": output_raster1, "type": "custom", "legend": [[1, 46, 154, 88]]}]
     result["vector_layers"]=[{"name": "shapefile of coherent areas with their potential","path": output_shp2}]
     result['indicator'] = [{"unit": "GWh", "name": "Total district heating potential in GWh in the region","value": total_potential},
                            {"unit": "GWh", "name": "test","value": total_potential}]
