@@ -34,7 +34,7 @@ class TestAPI(unittest.TestCase):
         inputs_parameter_selection = {}
         inputs_parameter_selection["pix_threshold"] = 100
         inputs_parameter_selection["DH_threshold"] = 30
-        inputs_raster_selection["heat_tot_curr_density_tif"]  = save_path
+        inputs_raster_selection["heat"]  = save_path
         # register the calculation module a
         payload = {"inputs_raster_selection": inputs_raster_selection,
                    "inputs_parameter_selection": inputs_parameter_selection}

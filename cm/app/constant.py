@@ -38,6 +38,7 @@ INPUTS_CALCULATION_MODULE = [
 
 SIGNATURE = {
     "category": "Buildings",
+    "authorized_scale":["NUTS 2","NUTS 0","NUTS 3","NUTS 1"],
     "cm_name": CM_NAME,
     "layers_needed": [
         "heat_tot_curr_density_tif",

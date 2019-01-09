@@ -28,7 +28,7 @@ def calculation(output_directory, inputs_raster_selection, inputs_parameter_sele
     print ('*******************************CALCULATION*******************************************')
     print ('input_raster_selectio_xxxxn', inputs_raster_selection)
     try:
-        input_raster_selection =  inputs_raster_selection["heat_tot_curr_density"]
+        input_raster_selection =  inputs_raster_selection["heat"]
     except:
         raise EmptyRasterError
 
