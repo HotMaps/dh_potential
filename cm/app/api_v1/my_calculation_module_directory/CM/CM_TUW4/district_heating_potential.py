@@ -129,10 +129,12 @@ def DHReg(heat_density_map, pix_threshold, DH_threshold, in_orig=None):
         hdm_arr = heat_density_map
     elif isinstance(heat_density_map, str):
         hdm_arr, gt = RA(heat_density_map, return_gt=True)
+    # division by 1000 for MWh to GWh
+    total_heat_demand = np.sum(hdm_arr)/1000
     hdm_arr_filtered = hdm_arr * (hdm_arr > pix_threshold)
     DH_Selected_Region = DHRegions(hdm_arr_filtered, DH_threshold)
     # return DH_Selected_Region and raster geotransform array
-    return DH_Selected_Region, gt
+    return DH_Selected_Region, gt, total_heat_demand
 
 
 if __name__ == "__main__":

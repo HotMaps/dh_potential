@@ -21,14 +21,16 @@ def main(heat_density_map, pix_threshold, DH_threshold, output_raster1,
     if DH_threshold < 1:
         raise ValueError("DH threshold cannot be smaller than 1 GWh/year!")
     # DH_Regions: boolean array showing DH regions
-    DH_Regions, geo_transform = DHP.DHReg(heat_density_map, pix_threshold,
-                                          DH_threshold, in_orig)
+    DH_Regions, geo_transform, total_heat_demand = DHP.DHReg(heat_density_map,
+                                                             pix_threshold,
+                                                             DH_threshold,
+                                                             in_orig)
     if only_return_areas:
         geo_transform = None
         return DH_Regions
 
     DHPot, labels = DHP.DHPotential(DH_Regions, heat_density_map)
-    
+    total_potential = np.sum(DHPot)
     graphics  = [
             {
                     "type": "bar",
@@ -40,6 +42,18 @@ def main(heat_density_map, pix_threshold, DH_threshold, output_raster1,
                                     "label": "Calculation module chart",
                                     "backgroundColor": ["#3e95cd"]*len(DHPot),
                                     "data": list(DHPot)
+                                    }]
+                    }
+                },{
+                    "type": "bar",
+                    "xLabel": "",
+                    "yLabel": "demand/potential (GWh/year)",
+                    "data": {
+                            "labels": ["Annual heat demand", "DH potential"],
+                            "datasets": [{
+                                    "label": "Heat Demand Vs. DH Potential(GWh/year)",
+                                    "backgroundColor": ["#fe7c60", "#3e95cd"],
+                                    "data": [total_heat_demand, total_potential]
                                     }]
                     }
                 }]
