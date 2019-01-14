@@ -18,7 +18,7 @@ INPUTS_CALCULATION_MODULE = [
     {'input_name': 'Min. heat demand in hectare',
      'input_type': 'input',
      'input_parameter_name': 'pix_threshold',
-     'input_value': 100,
+     'input_value': 333,
      'input_unit': 'MWh/ha',
      'input_min': 0,
      'input_max': 1000,
