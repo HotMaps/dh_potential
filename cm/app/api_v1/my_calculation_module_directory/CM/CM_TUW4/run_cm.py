@@ -57,8 +57,6 @@ def main(heat_density_map, pix_threshold, DH_threshold, output_raster1,
                                     }]
                     }
                 }]
-    
-    
     CM19.main(output_raster1, geo_transform, 'int8', DH_Regions)
     CM19.main(output_raster2, geo_transform, 'int32', labels)
     polygonize(output_raster1, output_raster2, output_shp1, output_shp2, DHPot)
