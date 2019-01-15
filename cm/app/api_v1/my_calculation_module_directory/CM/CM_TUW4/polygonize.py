@@ -68,7 +68,7 @@ def add_label_field(dh_bool_raster, label_raster, output_shp1, output_shp2,
         outFeature.SetField(outLayerDefn.GetFieldDefn(0).GetNameRef(),
                             geom_label+1)
         outFeature.SetField(outLayerDefn.GetFieldDefn(1).GetNameRef(),
-                            heat_dem_coh[geom_label])
+                            round(heat_dem_coh[geom_label], 2))
         outFeature.SetGeometry(geom)
         # Add new feature to output Layer
         outLayer.CreateFeature(outFeature)

@@ -15,6 +15,15 @@ PORT = PORT_DOCKER
 TRANFER_PROTOCOLE ='http://'
 
 INPUTS_CALCULATION_MODULE = [
+    {'input_name': 'Prefix for the outputs (max 10 character)',
+     'input_type': 'input',
+     'input_parameter_name': 'prefix',
+     'input_value': "",
+     'input_unit': "",
+     'input_min': "",
+     'input_max': "",
+     'cm_id': CM_ID
+     },
     {'input_name': 'Min. heat demand in hectare',
      'input_type': 'input',
      'input_parameter_name': 'pix_threshold',
@@ -46,7 +55,12 @@ SIGNATURE = {
         "heat",
     ],
     "cm_url": "Do not add something",
-    "cm_description": "This computation module calculates district heating potential within the selected region",
+    "cm_description": "This computation module calculates district heating " \
+    "potential within the selected region. As output, a layer for the " \
+    "potential areas are shown. Click on the regions to get their " \
+    "corresponding potential. Within the indicator/graph window, relevant " \
+    "indicators and charts regarding DH potential within the selected zone" \
+    "and potentials in sub-zones are illustrated.",
     "cm_id": CM_ID,
     'inputs_calculation_module': INPUTS_CALCULATION_MODULE
 }

@@ -30,7 +30,7 @@ def main(heat_density_map, pix_threshold, DH_threshold, output_raster1,
         return DH_Regions
 
     DHPot, labels = DHP.DHPotential(DH_Regions, heat_density_map)
-    total_potential = np.sum(DHPot)
+    total_potential = np.around(np.sum(DHPot),2)
     graphics  = [
             {
                     "type": "bar",
@@ -41,7 +41,7 @@ def main(heat_density_map, pix_threshold, DH_threshold, output_raster1,
                             "datasets": [{
                                     "label": "Potential in coherent areas",
                                     "backgroundColor": ["#3e95cd"]*len(DHPot),
-                                    "data": list(DHPot)
+                                    "data": list(np.around(DHPot,2))
                                     }]
                     }
                 },{
@@ -53,7 +53,7 @@ def main(heat_density_map, pix_threshold, DH_threshold, output_raster1,
                             "datasets": [{
                                     "label": "Heat Demand Vs. DH Potential (GWh/year)",
                                     "backgroundColor": ["#fe7c60", "#3e95cd"],
-                                    "data": [total_heat_demand, total_potential]
+                                    "data": [np.around(total_heat_demand, 2), total_potential]
                                     }]
                     }
                 }]
@@ -61,7 +61,7 @@ def main(heat_density_map, pix_threshold, DH_threshold, output_raster1,
     CM19.main(output_raster2, geo_transform, 'int32', labels)
     polygonize(output_raster1, output_raster2, output_shp1, output_shp2, DHPot)
     rm_file(output_raster2, output_raster2[:-4] + '.tfw')
-    return np.sum(DHPot), graphics
+    return np.sum(DHPot), total_heat_demand, graphics
     
     
 
