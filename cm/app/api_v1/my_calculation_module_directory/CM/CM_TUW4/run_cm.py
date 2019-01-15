@@ -35,11 +35,11 @@ def main(heat_density_map, pix_threshold, DH_threshold, output_raster1,
             {
                     "type": "bar",
                     "xLabel": "",
-                    "yLabel": "Potential(GWh/year)",
+                    "yLabel": "Potential (GWh/year)",
                     "data": {
                             "labels": [str(x) for x in range(len(DHPot))],
                             "datasets": [{
-                                    "label": "Calculation module chart",
+                                    "label": "Potential in coherent areas",
                                     "backgroundColor": ["#3e95cd"]*len(DHPot),
                                     "data": list(DHPot)
                                     }]
@@ -47,11 +47,11 @@ def main(heat_density_map, pix_threshold, DH_threshold, output_raster1,
                 },{
                     "type": "bar",
                     "xLabel": "",
-                    "yLabel": "demand/potential (GWh/year)",
+                    "yLabel": "Demand / Potential (GWh/year)",
                     "data": {
                             "labels": ["Annual heat demand", "DH potential"],
                             "datasets": [{
-                                    "label": "Heat Demand Vs. DH Potential(GWh/year)",
+                                    "label": "Heat Demand Vs. DH Potential (GWh/year)",
                                     "backgroundColor": ["#fe7c60", "#3e95cd"],
                                     "data": [total_heat_demand, total_potential]
                                     }]
