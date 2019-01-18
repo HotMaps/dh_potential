@@ -37,7 +37,7 @@ def main(heat_density_map, pix_threshold, DH_threshold, output_raster1,
                     "xLabel": "",
                     "yLabel": "Potential (GWh/year)",
                     "data": {
-                            "labels": [str(x) for x in range(len(DHPot))],
+                            "labels": [str(x) for x in range(1, 1+len(DHPot))],
                             "datasets": [{
                                     "label": "Potential in coherent areas",
                                     "backgroundColor": ["#3e95cd"]*len(DHPot),

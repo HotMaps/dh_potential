@@ -57,6 +57,7 @@ def calculation(output_directory, inputs_raster_selection, inputs_parameter_sele
     result["vector_layers"]=[{"name": prefix + "shapefile of coherent areas with their potential","path": output_shp2}]
     result['indicator'] = [{"unit": "GWh", "name": "Total heat demand in GWh within the selected zone","value": total_heat_demand},
                           {"unit": "GWh", "name": "Total district heating potential in GWh within the selected zone","value": total_potential},
+                          {"unit": "%", "name": "Potential share of district heating from total demand in selected zone","value": 100*round(total_potential/total_heat_demand, 4)}
                            ]
     result['graphics'] = graphics
     return result
