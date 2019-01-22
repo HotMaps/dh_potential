@@ -43,8 +43,8 @@ def add_label_field(dh_bool_raster, label_raster, output_shp1, output_shp2,
     outDataSource = outDriver.CreateDataSource(output_shp2)
     outLayer = outDataSource.CreateLayer("newSHP", srs,
                                          geom_type=geom_typ_dict[geom_typ])
-    Fields = ['label', 'pot_DH']
-    Fields_dtype = [ogr.OFTInteger, ogr.OFTReal]
+    Fields = ['Label', 'Potential']
+    Fields_dtype = [ogr.OFTInteger, ogr.OFTString]
     for i, f in enumerate(Fields):
         Field = ogr.FieldDefn(f, Fields_dtype[i])
         outLayer.CreateField(Field)
@@ -68,7 +68,7 @@ def add_label_field(dh_bool_raster, label_raster, output_shp1, output_shp2,
         outFeature.SetField(outLayerDefn.GetFieldDefn(0).GetNameRef(),
                             geom_label+1)
         outFeature.SetField(outLayerDefn.GetFieldDefn(1).GetNameRef(),
-                            round(heat_dem_coh[geom_label], 2))
+                            str(round(heat_dem_coh[geom_label], 2)) + " GWh")
         outFeature.SetGeometry(geom)
         # Add new feature to output Layer
         outLayer.CreateFeature(outFeature)

@@ -19,7 +19,7 @@ PORT = PORT_LOCAL
 TRANFER_PROTOCOLE ='http://'
 
 INPUTS_CALCULATION_MODULE = [
-    {'input_name': 'Prefix for the outputs (max 10 character)',
+    {'input_name': 'Prefix for outputs (max 10 characters)',
      'input_type': 'input',
      'input_parameter_name': 'prefix',
      'input_value': "",
