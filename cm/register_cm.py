@@ -26,14 +26,15 @@ def start_runner():
                 LOGGER.info('Server not yet started')
                 i=i+1
                 LOGGER.info('count = %s',str(i))
-                try:
-                    json.loads(response)
-                    LOGGER.info('Server started, quiting start_loop')
-                    not_started = False
-                except :
+                #try:
+                #if
+                json.loads(response)
+                LOGGER.info('Server started, quiting start_loop')
+                #not_started = False
+                #except :
 
-                    LOGGER.info('Server not yet started')
-                    time.sleep(2)
+                #LOGGER.info('Server have not registerd for some reason')
+                time.sleep(2)
 
     print('Started runner')
     start_loop()

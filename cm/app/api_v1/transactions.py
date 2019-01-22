@@ -64,7 +64,7 @@ def register():
     signature_final["cm_url"] = base_url
     payload = json.dumps(signature_final)
     response = calculation_module_rpc.call(payload)
-    print ('CM will finish register ')
+    print ('CM has registered with the following respons ',response)
 
     return response
 
