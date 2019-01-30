@@ -19,15 +19,7 @@ PORT = PORT_DOCKER
 TRANFER_PROTOCOLE ='http://'
 
 INPUTS_CALCULATION_MODULE = [
-    {'input_name': 'Prefix for outputs (max 10 characters)',
-     'input_type': 'input',
-     'input_parameter_name': 'prefix',
-     'input_value': "",
-     'input_unit': "",
-     'input_min': "",
-     'input_max': "",
-     'cm_id': CM_ID
-     },
+
     {'input_name': 'Min. heat demand in hectare',
      'input_type': 'input',
      'input_parameter_name': 'pix_threshold',

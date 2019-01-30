@@ -68,7 +68,7 @@ def zipdir(path, ziph):
             ziph.write(os.path.join(root, file))
 
 def zip_directory(path_to_zip):
-    print ('path_to_zip ',path_to_zip)
+    #print ('path_to_zip ',path_to_zip)
     filename = str(uuid.uuid4()) + '.zip'
 
     zipf = zipfile.ZipFile(filename, 'w', zipfile.ZIP_DEFLATED)

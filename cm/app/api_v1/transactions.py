@@ -143,9 +143,9 @@ def compute():
     response = {
         'result': result
     }
-    print("response ",response)
-    LOGGER.info('response', response)
-    print("type response ",type(response))
+    #print("response ",response)
+    #LOGGER.info('response', response)
+    #print("type response ",type(response))
 
     # convert response dict to json
     response = json.dumps(response)

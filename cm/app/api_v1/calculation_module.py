@@ -27,14 +27,11 @@ def calculation(output_directory, inputs_raster_selection, inputs_parameter_sele
     '''
     input_raster_selection =  inputs_raster_selection["heat"]
 
-    prefix = str(inputs_parameter_selection["prefix"])
+
     pix_threshold = int(inputs_parameter_selection["pix_threshold"])
     DH_threshold = int(inputs_parameter_selection["DH_threshold"])
 
-    if len(prefix) > 10:
-        raise ValueError("The length of the prefix may not exceed 10 characters!")
-    if len(prefix) > 0:
-        prefix = prefix + " - "
+
 
     output_raster1 = generate_output_file_tif(output_directory)
     output_raster2 = generate_output_file_tif(output_directory)
@@ -52,9 +49,9 @@ def calculation(output_directory, inputs_raster_selection, inputs_parameter_sele
 
     output_shp2 = create_zip_shapefiles(output_directory, output_shp2)
     result = dict()
-    result['name'] = prefix + 'CM District Heating Potential'
-    result["raster_layers"]=[{"name": prefix + "district heating coherent areas","path": output_raster1, "type": "custom", "legend": [[1, 46, 154, 88]]}]
-    result["vector_layers"]=[{"name": prefix + "shapefile of coherent areas with their potential","path": output_shp2}]
+    result['name'] =  'CM District Heating Potential'
+    result["raster_layers"]=[{"name":  "district heating coherent areas","path": output_raster1, "type": "custom", "legend": [[1, 46, 154, 88]]}]
+    result["vector_layers"]=[{"name":  "shapefile of coherent areas with their potential","path": output_shp2}]
     result['indicator'] = [{"unit": "GWh", "name": "Total heat demand in GWh within the selected zone","value": total_heat_demand},
                           {"unit": "GWh", "name": "Total district heating potential in GWh within the selected zone","value": total_potential},
                           {"unit": "%", "name": "Potential share of district heating from total demand in selected zone","value": 100*round(total_potential/total_heat_demand, 4)}
