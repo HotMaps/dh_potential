@@ -27,14 +27,11 @@ def calculation(output_directory, inputs_raster_selection, inputs_parameter_sele
     '''
     input_raster_selection =  inputs_raster_selection["heat"]
 
-    prefix = str(inputs_parameter_selection["prefix"])
+
     pix_threshold = int(inputs_parameter_selection["pix_threshold"])
     DH_threshold = int(inputs_parameter_selection["DH_threshold"])
 
-    if len(prefix) > 10:
-        raise ValueError("The length of the prefix may not exceed 10 characters!")
-    if len(prefix) > 0:
-        prefix = prefix + " - "
+
 
     output_raster1 = generate_output_file_tif(output_directory)
     output_raster2 = generate_output_file_tif(output_directory)

@@ -29,10 +29,10 @@ def on_request(ch, method, props, body):
     ip = socket.gethostbyname(socket.gethostname())
 
     base_url = TRANFER_PROTOCOLE+ str(ip) +':'+str(PORT)+'/computation-module/compute/'
-    print ('base_url ', base_url)
+    #print ('base_url ', base_url)
     res = requests.post(base_url, data = body, headers = headers)
     response = res.text
-    print ('onRequest response', response)
+   # print ('onRequest response', response)
     ch.basic_publish(exchange='',
                      routing_key=props.reply_to,
                      properties=pika.BasicProperties(correlation_id = \
