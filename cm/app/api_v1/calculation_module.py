@@ -50,7 +50,7 @@ def calculation(output_directory, inputs_raster_selection, inputs_parameter_sele
     output_shp2 = create_zip_shapefiles(output_directory, output_shp2)
     result = dict()
     result['name'] = 'CM District Heating Potential'
-    result["raster_layers"]=[{"name": "district heating coherent areas","path": output_raster1, "type": "custom", "symbology": [{"red":46,"green":154,"blue":88,"opacity":0.5,"value":"1","label":"DH Areas"}]}]
+    result["raster_layers"]=[{"name": "district heating coherent areas","path": output_raster1, "type": "custom", "symbology": [{"red":46,"green":154,"blue":0,"opacity":0.8,"value":"1","label":"DH Areas"}]}]
     result["vector_layers"]=[{"name": "shapefile of coherent areas with their potential","path": output_shp2}]
     result['indicator'] = [{"unit": "GWh", "name": "Total heat demand in GWh within the selected zone","value": total_heat_demand},
                           {"unit": "GWh", "name": "Total district heating potential in GWh within the selected zone","value": total_potential},
