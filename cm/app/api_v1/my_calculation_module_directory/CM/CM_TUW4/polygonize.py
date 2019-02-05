@@ -83,7 +83,7 @@ def add_label_field(dh_bool_raster, label_raster, output_shp1, output_shp2,
         outFeature.SetField(outLayerDefn.GetFieldDefn(1).GetNameRef(),
                             str(round(heat_dem_coh[geom_label], 2)) + " GWh")
         outFeature.SetField(outLayerDefn.GetFieldDefn(2).GetNameRef(),
-                            rgba(minimum, maximum, heat_dem_coh[geom_label]))                    
+                            "(46, 154, 88, 0.5)")                    
         outFeature.SetGeometry(geom)
         # Add new feature to output Layer
         outLayer.CreateFeature(outFeature)
