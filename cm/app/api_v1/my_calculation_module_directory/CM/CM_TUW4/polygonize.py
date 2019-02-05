@@ -12,9 +12,22 @@ if path not in sys.path:
 from CM.CM_TUW1.read_raster import raster_array as RA
 
 
+
+
+def rgba(minimum, maximum, value, a=0.5):
+    minimum, maximum = float(minimum), float(maximum)
+    ratio = 2 * (value-minimum) / (maximum - minimum)
+    b = int(max(0, 255*(1 - ratio)))
+    r = int(max(0, 255*(ratio - 1)))
+    g = 255 - b - r
+    output = "(" + str(r) + ", " + str(g) + ", " + str(b) + ", " + str(a) + ")"
+    return output
+
+
 def add_label_field(dh_bool_raster, label_raster, output_shp1, output_shp2,
                     heat_dem_coh, epsg=3035):
     label_list = []
+    minimum, maximum = np.min(heat_dem_coh) , np.max(heat_dem_coh)
     outDriver = ogr.GetDriverByName("ESRI Shapefile")
     # Remove output shapefile if it already exists
     if os.path.exists(output_shp2):
@@ -43,8 +56,8 @@ def add_label_field(dh_bool_raster, label_raster, output_shp1, output_shp2,
     outDataSource = outDriver.CreateDataSource(output_shp2)
     outLayer = outDataSource.CreateLayer("newSHP", srs,
                                          geom_type=geom_typ_dict[geom_typ])
-    Fields = ['Label', 'Potential']
-    Fields_dtype = [ogr.OFTInteger, ogr.OFTString]
+    Fields = ['Label', 'Potential', 'RGBA']
+    Fields_dtype = [ogr.OFTInteger, ogr.OFTString, ogr.OFTString]
     for i, f in enumerate(Fields):
         Field = ogr.FieldDefn(f, Fields_dtype[i])
         outLayer.CreateField(Field)
@@ -69,6 +82,8 @@ def add_label_field(dh_bool_raster, label_raster, output_shp1, output_shp2,
                             geom_label+1)
         outFeature.SetField(outLayerDefn.GetFieldDefn(1).GetNameRef(),
                             str(round(heat_dem_coh[geom_label], 2)) + " GWh")
+        outFeature.SetField(outLayerDefn.GetFieldDefn(2).GetNameRef(),
+                            rgba(minimum, maximum, heat_dem_coh[geom_label]))                    
         outFeature.SetGeometry(geom)
         # Add new feature to output Layer
         outLayer.CreateFeature(outFeature)
