@@ -34,7 +34,7 @@ def main(heat_density_map, pix_threshold, DH_threshold, output_raster1,
     graphics  = [
             {
                     "type": "bar",
-                    "xLabel": "",
+                    "xLabel": "DH Area Label",
                     "yLabel": "Potential (GWh/year)",
                     "data": {
                             "labels": [str(x) for x in range(1, 1+len(DHPot))],
