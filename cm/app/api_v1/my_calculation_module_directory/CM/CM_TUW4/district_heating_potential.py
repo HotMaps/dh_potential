@@ -135,21 +135,3 @@ def DHReg(heat_density_map, pix_threshold, DH_threshold, in_orig=None):
     DH_Selected_Region = DHRegions(hdm_arr_filtered, DH_threshold)
     # return DH_Selected_Region and raster geotransform array
     return DH_Selected_Region, gt, total_heat_demand
-
-
-if __name__ == "__main__":
-    start = time.time()
-    data_warehouse = path + os.sep + 'AD/data_warehouse'
-    heat_density_map = data_warehouse + os.sep + 'heat_tot_curr_density_AT.tif'
-    region = data_warehouse + os.sep + 'AT.shp'
-    output_dir = path + os.sep + 'Outputs'
-    if not os.path.exists(output_dir):
-        os.mkdir(output_dir)
-    outRasterPath = output_dir + os.sep + 'Pot_AT_TH30.tif'
-    # pix_threshold [GWh/km2]
-    pix_threshold = 10
-    # DH_threshold [GWh/a]
-    DH_threshold = 30
-    output = DHReg(heat_density_map, region, pix_threshold, DH_threshold)
-    elapsed = time.time() - start
-    print("%0.3f seconds" % elapsed)

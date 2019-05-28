@@ -1,6 +1,5 @@
 import os
 import sys
-from app import helper
 path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.
                                                        abspath(__file__))))
 from ..helper import generate_output_file_tif
@@ -27,8 +26,6 @@ def calculation(output_directory, inputs_raster_selection, inputs_parameter_sele
         DH_Regions: contains binary values (no units) showing coherent areas
     '''
     input_raster_selection =  inputs_raster_selection["heat"]
-    helper.validateRaster(input_raster_selection)
-
 
 
     pix_threshold = int(inputs_parameter_selection["pix_threshold"])
@@ -50,16 +47,17 @@ def calculation(output_directory, inputs_raster_selection, inputs_parameter_sele
                                                             output_shp1,
                                                             output_shp2)
 
-    output_shp2 = create_zip_shapefiles(output_directory, output_shp2)
     result = dict()
-    result['name'] =  'CM District Heating Potential'
-    result["raster_layers"]=[{"name":  "district heating coherent areas","path": output_raster1, "type": "custom", "legend": [[1, 46, 154, 88]]}]
-    result["vector_layers"]=[{"name":  "shapefile of coherent areas with their potential","path": output_shp2}]
+    result['name'] = 'CM District Heating Potential'
     result['indicator'] = [{"unit": "GWh", "name": "Total heat demand in GWh within the selected zone","value": total_heat_demand},
                           {"unit": "GWh", "name": "Total district heating potential in GWh within the selected zone","value": total_potential},
                           {"unit": "%", "name": "Potential share of district heating from total demand in selected zone","value": 100*round(total_potential/total_heat_demand, 4)}
                            ]
+    # if graphics is not None:
+    if total_potential > 0:
+        output_shp2 = create_zip_shapefiles(output_directory, output_shp2)
+        result["raster_layers"]=[{"name": "district heating coherent areas","path": output_raster1, "type": "custom", "symbology": [{"red":250,"green":159,"blue":181,"opacity":0.8,"value":"1","label":"DH Areas"}]}]
+        result["vector_layers"]=[{"name": "shapefile of coherent areas with their potential","path": output_shp2}]
     result['graphics'] = graphics
 
-    print ('raster_layers', result)
     return result
