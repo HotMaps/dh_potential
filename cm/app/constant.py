@@ -5,16 +5,18 @@ CELERY_BROKER_URL_LOCAL = 'amqp://localhost/'
 
 
 CM_REGISTER_Q = 'rpc_queue_CM_register'
-CM_NAME = 'District Heating Potential'
+CM_NAME = 'Potential district heating areas: user-defined thresholds'
 RPC_CM_ALIVE= 'rpc_queue_CM_ALIVE'
 RPC_Q = 'rpc_queue_CM_compute' # Do no change this value
 CM_ID = 2
 PORT_LOCAL = int('500' + str(CM_ID))
 PORT_DOCKER = 80
-#TODO***********************************************************************
+#TODO ********************setup this URL depending on which version you are running***************************
+
 CELERY_BROKER_URL = CELERY_BROKER_URL_DOCKER
 PORT = PORT_DOCKER
-#TODO***********************************************************************
+
+#TODO ********************setup this URL depending on which version you are running***************************
 
 TRANFER_PROTOCOLE ='http://'
 

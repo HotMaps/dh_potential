@@ -3,6 +3,7 @@ import ast
 import json
 import zipfile
 import os
+from osgeo import gdal
 
 import shutil
 from zipfile import ZipFile
@@ -32,6 +33,10 @@ def validateJSON(value):
 
     return response
 
+def validateRaster(raster_path):
+    ds = gdal.Open(raster_path)
+    if not ds:
+        raise Exception(" unable to load a raster with the path ", raster_path)
 
 
 def create_zip_shapefiles(output_directory, shafefile):

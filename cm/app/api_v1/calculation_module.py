@@ -1,5 +1,6 @@
 import os
 import sys
+from app import helper
 path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.
                                                        abspath(__file__))))
 from ..helper import generate_output_file_tif
@@ -26,6 +27,8 @@ def calculation(output_directory, inputs_raster_selection, inputs_parameter_sele
         DH_Regions: contains binary values (no units) showing coherent areas
     '''
     input_raster_selection =  inputs_raster_selection["heat"]
+    helper.validateRaster(input_raster_selection)
+
 
 
     pix_threshold = int(inputs_parameter_selection["pix_threshold"])
@@ -57,4 +60,6 @@ def calculation(output_directory, inputs_raster_selection, inputs_parameter_sele
                           {"unit": "%", "name": "Potential share of district heating from total demand in selected zone","value": 100*round(total_potential/total_heat_demand, 4)}
                            ]
     result['graphics'] = graphics
+
+    print ('raster_layers', result)
     return result
