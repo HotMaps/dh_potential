@@ -5,7 +5,7 @@ CELERY_BROKER_URL_LOCAL = 'amqp://localhost/'
 
 
 CM_REGISTER_Q = 'rpc_queue_CM_register'
-CM_NAME = 'Potential district heating areas: user-defined thresholds'
+CM_NAME = 'CM - District heating potential areas: user-defined thresholds'
 RPC_CM_ALIVE= 'rpc_queue_CM_ALIVE'
 RPC_Q = 'rpc_queue_CM_compute' # Do no change this value
 CM_ID = 2

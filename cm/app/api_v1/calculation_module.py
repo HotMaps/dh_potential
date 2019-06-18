@@ -5,6 +5,7 @@ path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 from ..helper import generate_output_file_tif
 from ..helper import generate_output_file_shp
 from ..helper import create_zip_shapefiles
+from ..constant import CM_NAME
 from ..exceptions import ValidationError,EmptyRasterError
 """ Entry point of the calculation module function"""
 if path not in sys.path:
@@ -48,7 +49,7 @@ def calculation(output_directory, inputs_raster_selection, inputs_parameter_sele
                                                             output_shp2)
 
     result = dict()
-    result['name'] = 'CM District Heating Potential'
+    result['name'] = CM_NAME
     result['indicator'] = [{"unit": "GWh", "name": "Total heat demand in GWh within the selected zone","value": total_heat_demand},
                           {"unit": "GWh", "name": "Total district heating potential in GWh within the selected zone","value": total_potential},
                           {"unit": "%", "name": "Potential share of district heating from total demand in selected zone","value": 100*round(total_potential/total_heat_demand, 4)}
