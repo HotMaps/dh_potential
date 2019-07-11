@@ -19,4 +19,4 @@ amqp==2.2.2
 scipy
 pandas
 networkx
-pyomo
+
