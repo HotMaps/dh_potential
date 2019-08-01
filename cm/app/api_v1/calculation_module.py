@@ -13,7 +13,6 @@ if path not in sys.path:
 import my_calculation_module_directory.CM.CM_TUW4.run_cm as CM4
 
 
-
 def calculation(output_directory, inputs_raster_selection, inputs_parameter_selection):
 
     """ def calculation()"""
@@ -33,12 +32,22 @@ def calculation(output_directory, inputs_raster_selection, inputs_parameter_sele
     DH_threshold = int(inputs_parameter_selection["DH_threshold"])
 
 
+#TODO: CM provider must "change this code"
+#TODO: CM provider must "not change input_raster_selection,output_raster  1 raster input => 1 raster output"
+#TODO: CM provider can "add all the parameters he needs to run his CM
+#TODO: CM provider can "return as many indicators as he wants"
+def calculation(output_directory, inputs_raster_selection,inputs_vector_selection, inputs_parameter_selection):
+    #TODO the folowing code must be changed by the code of the calculation module
+
+    # generate the output raster file
+    output_raster1 = generate_output_file_tif(output_directory)
+
+
 
     output_raster1 = generate_output_file_tif(output_directory)
     output_raster2 = generate_output_file_tif(output_directory)
     output_shp1 = generate_output_file_shp(output_directory)
     output_shp2 = generate_output_file_shp(output_directory)
-
 
     total_potential, total_heat_demand, \
     graphics, symbol_vals_str = CM4.main(input_raster_selection, pix_threshold,

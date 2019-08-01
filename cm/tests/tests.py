@@ -24,6 +24,7 @@ class TestAPI(unittest.TestCase):
 
         self.ctx.pop()
 
+
     def test_compute(self):
         raster_file_path = 'tests/data/raster_for_test.tif'
         # simulate copy from HTAPI to CM
@@ -42,16 +43,5 @@ class TestAPI(unittest.TestCase):
         rv, json = self.client.post('computation-module/compute/', data=payload)
 
         self.assertTrue(rv.status_code == 200)
-
-
-""" def test_register(self):
-      # register the calculation module a
-      rv, json = self.client.post('computation-module/register/', data={'name': 'prod1'})
-
-      self.assertTrue(rv.status_code == 200)
-
-      # get list of products"""
-
-
 
 

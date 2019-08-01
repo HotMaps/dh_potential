@@ -4,9 +4,9 @@ CELERY_BROKER_URL_LOCAL = 'amqp://localhost/'
 
 
 
-CM_REGISTER_Q = 'rpc_queue_CM_register'
+CM_REGISTER_Q = 'rpc_queue_CM_register' # Do no change this value
 CM_NAME = 'CM - District heating potential areas: user-defined thresholds'
-RPC_CM_ALIVE= 'rpc_queue_CM_ALIVE'
+RPC_CM_ALIVE= 'rpc_queue_CM_ALIVE' # Do no change this value
 RPC_Q = 'rpc_queue_CM_compute' # Do no change this value
 CM_ID = 2
 PORT_LOCAL = int('500' + str(CM_ID))
@@ -20,8 +20,10 @@ PORT = PORT_DOCKER
 
 TRANFER_PROTOCOLE ='http://'
 
-INPUTS_CALCULATION_MODULE = [
+#TODO ********************setup this URL depending on which version you are running***************************
 
+TRANFER_PROTOCOLE ='http://'
+INPUTS_CALCULATION_MODULE = [
     {'input_name': 'Min. heat demand in hectare',
      'input_type': 'input',
      'input_parameter_name': 'pix_threshold',
@@ -44,7 +46,9 @@ INPUTS_CALCULATION_MODULE = [
 
 
 SIGNATURE = {
+
     "category": "Buildings",
+    "authorized_scale":["NUTS 2","NUTS 0","Hectare"],
     "cm_name": CM_NAME,
     "layers_needed": [
         "heat_tot_curr_density_tif",
