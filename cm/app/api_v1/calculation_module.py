@@ -1,12 +1,11 @@
 import os
 import sys
-path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.
-                                                       abspath(__file__))))
+path = os.path.dirname(os.path.abspath(__file__))
 from ..helper import generate_output_file_tif
 from ..helper import generate_output_file_shp
 from ..helper import create_zip_shapefiles
 from ..constant import CM_NAME
-from ..exceptions import ValidationError,EmptyRasterError
+from ..exceptions import ValidationError
 """ Entry point of the calculation module function"""
 if path not in sys.path:
     sys.path.append(path)
