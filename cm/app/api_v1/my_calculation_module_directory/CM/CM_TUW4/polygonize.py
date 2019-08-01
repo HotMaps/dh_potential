@@ -27,7 +27,27 @@ def rgba(minimum, maximum, value, a=0.5):
 def add_label_field(dh_bool_raster, label_raster, output_shp1, output_shp2,
                     heat_dem_coh, epsg=3035):
     label_list = []
-    minimum, maximum = np.min(heat_dem_coh) , np.max(heat_dem_coh)
+    color_map = ["#feedde", "#fdd0a2", "#fdae6b", "#fd8d3c",
+                 "#e6550d", "#a63603"]
+    min_val_dh, max_val_dh = np.min(heat_dem_coh) , np.max(heat_dem_coh)
+    diff = max_val_dh - min_val_dh
+    # calculate the teps in legend. 6 steps are generated
+    symbol_vals = [round(min_val_dh + i*diff/4, 1) for i in range(5)]
+    symbol_vals_str = [str(item) for item in symbol_vals]
+    '''
+    check each value of demands falls into which category of the legend
+    if symbol_vals = [a, b, c, d, e], the classes are
+        x < a         class 0
+        a <= x < b    class 1
+        b <= x < c    class 2
+        ...
+        f <= x        class 5
+    - values bellow smallest element in symbol_vals get 0
+    - values above largest element in symbol_vals get 5
+    '''
+    dem_legend_index = np.searchsorted(symbol_vals, heat_dem_coh, side='right')
+    
+    
     outDriver = ogr.GetDriverByName("ESRI Shapefile")
     # Remove output shapefile if it already exists
     if os.path.exists(output_shp2):
@@ -57,7 +77,8 @@ def add_label_field(dh_bool_raster, label_raster, output_shp1, output_shp2,
     outLayer = outDataSource.CreateLayer("newSHP", srs,
                                          geom_type=geom_typ_dict[geom_typ])
     Fields = ['Label', 'Potential', 'color', 'fillColor', 'opacity']
-    Fields_dtype = [ogr.OFTInteger, ogr.OFTString, ogr.OFTString, ogr.OFTString, ogr.OFTString]
+    Fields_dtype = [ogr.OFTInteger, ogr.OFTString, ogr.OFTString,
+                    ogr.OFTString, ogr.OFTString]
     for i, f in enumerate(Fields):
         Field = ogr.FieldDefn(f, Fields_dtype[i])
         outLayer.CreateField(Field)
@@ -83,11 +104,11 @@ def add_label_field(dh_bool_raster, label_raster, output_shp1, output_shp2,
         outFeature.SetField(outLayerDefn.GetFieldDefn(1).GetNameRef(),
                             str(round(heat_dem_coh[geom_label], 2)) + " GWh")
         outFeature.SetField(outLayerDefn.GetFieldDefn(2).GetNameRef(),
-                            "#c51b8a")                    
+                            color_map[dem_legend_index[geom_label]])
         outFeature.SetField(outLayerDefn.GetFieldDefn(3).GetNameRef(),
-                            "#fa9fb5")
+                            color_map[dem_legend_index[geom_label]])
         outFeature.SetField(outLayerDefn.GetFieldDefn(4).GetNameRef(),
-                            "0.9")
+                            "0.5")
         outFeature.SetGeometry(geom)
         # Add new feature to output Layer
         outLayer.CreateFeature(outFeature)
@@ -97,10 +118,11 @@ def add_label_field(dh_bool_raster, label_raster, output_shp1, output_shp2,
     outDataSource = None
     if os.path.exists(output_shp1):
         outDriver.DeleteDataSource(output_shp1)
+    return symbol_vals_str
 
 
-def polygonize(dh_bool_raster, label_arr, output_shp1, output_shp2, heat_dem_coh,
-               epsg=3035):
+def polygonize(dh_bool_raster, label_arr, output_shp1, output_shp2,
+               heat_dem_coh, epsg=3035):
     # save the coherent areas in shapefile format
     raster = gdal.Open(dh_bool_raster)
     band = raster.GetRasterBand(1)
@@ -118,5 +140,6 @@ def polygonize(dh_bool_raster, label_arr, output_shp1, output_shp2, heat_dem_coh
     gdal.Polygonize(band, band, outLayer, 0, options=["8CONNECTED=8"])
     # save layer
     outDataSource = outLayer = band = None
-    add_label_field(dh_bool_raster, label_arr, output_shp1, output_shp2,
-                    heat_dem_coh)
+    symbol_vals_str = add_label_field(dh_bool_raster, label_arr, output_shp1,
+                                      output_shp2, heat_dem_coh)
+    return symbol_vals_str

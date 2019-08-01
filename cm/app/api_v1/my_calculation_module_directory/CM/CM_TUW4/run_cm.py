@@ -61,10 +61,12 @@ def main(heat_density_map, pix_threshold, DH_threshold, output_raster1,
                                     }]
                     }
                 }]
+    symbol_vals_str = []
     if dh_area_flag:
         CM19.main(output_raster1, geo_transform, 'int8', DH_Regions)
         CM19.main(output_raster2, geo_transform, 'int32', labels)
-        polygonize(output_raster1, output_raster2, output_shp1, output_shp2, DHPot)
+        symbol_vals_str = polygonize(output_raster1, output_raster2,
+                                     output_shp1, output_shp2, DHPot)
         rm_file(output_raster2, output_raster2[:-4] + '.tfw')
 
-    return total_potential, total_heat_demand, graphics
+    return total_potential, total_heat_demand, graphics, symbol_vals_str
