@@ -28,8 +28,8 @@ def calculation(output_directory, inputs_raster_selection, inputs_parameter_sele
     input_raster_selection =  inputs_raster_selection["heat"]
 
 
-    pix_threshold = int(inputs_parameter_selection["pix_threshold"])
-    DH_threshold = int(inputs_parameter_selection["DH_threshold"])
+    pix_threshold = float(inputs_parameter_selection["pix_threshold"])
+    DH_threshold = float(inputs_parameter_selection["DH_threshold"])
 
 
 
