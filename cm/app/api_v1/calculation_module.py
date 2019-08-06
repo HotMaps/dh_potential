@@ -53,15 +53,23 @@ def calculation(output_directory, inputs_raster_selection, inputs_parameter_sele
     # if graphics is not None:
     if total_potential > 0:
         output_shp2 = create_zip_shapefiles(output_directory, output_shp2)
+        step = float(symbol_vals_str[4]) - float(symbol_vals_str[3])
         result["raster_layers"]=[{"name": "District heating areas - raster","path": output_raster1, "type": "custom",
                                   "symbology": [{"red":254,"green":237,"blue":222,"opacity":0.5,"value":symbol_vals_str[0],"label":symbol_vals_str[0] + " GWh"},
                                                 {"red":253,"green":208,"blue":162,"opacity":0.5,"value":symbol_vals_str[1],"label":symbol_vals_str[1] + " GWh"},
                                                 {"red":253,"green":174,"blue":107,"opacity":0.5,"value":symbol_vals_str[2],"label":symbol_vals_str[2] + " GWh"},
                                                 {"red":253,"green":141,"blue": 60,"opacity":0.5,"value":symbol_vals_str[3],"label":symbol_vals_str[3] + " GWh"},
                                                 {"red":230,"green": 85,"blue": 13,"opacity":0.5,"value":symbol_vals_str[4],"label":symbol_vals_str[4] + " GWh"},
-                                                {"red":166,"green": 54,"blue":  3,"opacity":0.5,"value":str(float(symbol_vals_str[4]) + 30),"label":">" +symbol_vals_str[4] + " GWh"}]
+                                                {"red":166,"green": 54,"blue":  3,"opacity":0.5,"value":str(float(symbol_vals_str[4]) + step),"label":">" +symbol_vals_str[4] + " GWh"}]
                                   }]
-        result["vector_layers"]=[{"name": "District heating areas and their potentials - shapefile","path": output_shp2}]
+        result["vector_layers"]=[{"name": "District heating areas and their potentials - shapefile","path": output_shp2, "type": "custom",
+                                  "symbology": [{"red":254,"green":237,"blue":222,"opacity":0.5,"value":symbol_vals_str[0],"label":symbol_vals_str[0] + " GWh"},
+                                                {"red":253,"green":208,"blue":162,"opacity":0.5,"value":symbol_vals_str[1],"label":symbol_vals_str[1] + " GWh"},
+                                                {"red":253,"green":174,"blue":107,"opacity":0.5,"value":symbol_vals_str[2],"label":symbol_vals_str[2] + " GWh"},
+                                                {"red":253,"green":141,"blue": 60,"opacity":0.5,"value":symbol_vals_str[3],"label":symbol_vals_str[3] + " GWh"},
+                                                {"red":230,"green": 85,"blue": 13,"opacity":0.5,"value":symbol_vals_str[4],"label":symbol_vals_str[4] + " GWh"},
+                                                {"red":166,"green": 54,"blue":  3,"opacity":0.5,"value":str(float(symbol_vals_str[4]) + step),"label":">" +symbol_vals_str[4] + " GWh"}]
+                                  }]
     result['graphics'] = graphics
 
     return result
