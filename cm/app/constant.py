@@ -13,8 +13,8 @@ PORT_LOCAL = int('500' + str(CM_ID))
 PORT_DOCKER = 80
 #TODO ********************setup this URL depending on which version you are running***************************
 
-CELERY_BROKER_URL = CELERY_BROKER_URL_DOCKER
-PORT = PORT_DOCKER
+CELERY_BROKER_URL = CELERY_BROKER_URL_LOCAL
+PORT = PORT_LOCAL
 
 #TODO ********************setup this URL depending on which version you are running***************************
 
@@ -30,7 +30,7 @@ INPUTS_CALCULATION_MODULE = [
      'input_value': 333,
      'input_unit': 'MWh/ha',
      'input_min': 0,
-     'input_max': 1000,
+     'input_max': 10000,
      'cm_id': CM_ID
      },
     {'input_name': 'Min. heat demand in a DH area',
@@ -39,7 +39,7 @@ INPUTS_CALCULATION_MODULE = [
      'input_value': 30,
      'input_unit': 'GWh/year',
      'input_min': 0,
-     'input_max': 500,
+     'input_max': 5000,
      'cm_id': CM_ID
      }
 ]
