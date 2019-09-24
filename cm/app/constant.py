@@ -30,7 +30,7 @@ INPUTS_CALCULATION_MODULE = [
      'input_value': 333,
      'input_unit': 'MWh/ha',
      'input_min': 0,
-     'input_max': 1000,
+     'input_max': 10000,
      'cm_id': CM_ID
      },
     {'input_name': 'Min. heat demand in a DH area',
@@ -39,7 +39,7 @@ INPUTS_CALCULATION_MODULE = [
      'input_value': 30,
      'input_unit': 'GWh/year',
      'input_min': 0,
-     'input_max': 500,
+     'input_max': 5000,
      'cm_id': CM_ID
      }
 ]
