@@ -33,10 +33,11 @@ def add_label_field(dh_bool_raster, label_raster, output_shp1, output_shp2,
     diff = max_val_dh - min_val_dh
     # calculate the teps in legend. 6 steps are generated
     if diff != 0:
-        symbol_vals = [round(min_val_dh - diff/8 + i*diff/4, 1) for i in range(5)]
+        symbol_vals = [round(min_val_dh + i*diff/4, 1) for i in range(5)]
     else:
-        synthesis_diff = min_val_dh/10
-        symbol_vals = [round(min_val_dh + diff/8 + i*diff/4, 1) for i in range(5)]
+        # synthesis_diff of 1 GWh
+        synthesis_diff = 1
+        symbol_vals = [round(min_val_dh + i*diff/4, 1) for i in range(5)]
     symbol_vals_str = [str(item) for item in symbol_vals]
     '''
     check each value of demands falls into which category of the legend
