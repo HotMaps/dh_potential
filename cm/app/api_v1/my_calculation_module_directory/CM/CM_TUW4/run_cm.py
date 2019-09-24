@@ -15,11 +15,6 @@ import CM.CM_TUW19.run_cm as CM19
 def main(heat_density_map, pix_threshold, DH_threshold, output_raster1,
          output_raster2, output_shp1, output_shp2, in_orig=None,
          only_return_areas=False):
-    # The CM can be run for the following ranges of pixel and Dh thresholds:
-    if pix_threshold < 1:
-        raise ValueError("Pixel threshold cannot be smaller than 1 GWh/km2!")
-    if DH_threshold < 1:
-        raise ValueError("DH threshold cannot be smaller than 1 GWh/year!")
     # DH_Regions: boolean array showing DH regions
     DH_Regions, geo_transform, total_heat_demand = DHP.DHReg(heat_density_map,
                                                              pix_threshold,

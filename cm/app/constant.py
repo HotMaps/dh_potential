@@ -29,7 +29,7 @@ INPUTS_CALCULATION_MODULE = [
      'input_parameter_name': 'pix_threshold',
      'input_value': 333,
      'input_unit': 'MWh/ha',
-     'input_min': 0,
+     'input_min': 1,
      'input_max': 10000,
      'cm_id': CM_ID
      },
@@ -38,7 +38,7 @@ INPUTS_CALCULATION_MODULE = [
      'input_parameter_name': 'DH_threshold',
      'input_value': 30,
      'input_unit': 'GWh/year',
-     'input_min': 0,
+     'input_min': 0.1,
      'input_max': 5000,
      'cm_id': CM_ID
      }
