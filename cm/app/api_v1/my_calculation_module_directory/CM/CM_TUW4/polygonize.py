@@ -37,7 +37,7 @@ def add_label_field(dh_bool_raster, label_raster, output_shp1, output_shp2,
     else:
         # synthesis_diff of 1 GWh
         synthesis_diff = 1
-        symbol_vals = [round(min_val_dh + i*diff/4, 1) for i in range(5)]
+        symbol_vals = [round(min_val_dh + i*synthesis_diff/4, 1) for i in range(5)]
     symbol_vals_str = [str(item) for item in symbol_vals]
     '''
     check each value of demands falls into which category of the legend
