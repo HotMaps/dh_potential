@@ -16,10 +16,10 @@ def main(heat_density_map, pix_threshold, DH_threshold, output_raster1,
          output_raster2, output_shp1, output_shp2, in_orig=None,
          only_return_areas=False):
     # DH_Regions: boolean array showing DH regions
-    DH_Regions, geo_transform, total_heat_demand = DHP.DHReg(heat_density_map,
-                                                             pix_threshold,
-                                                             DH_threshold,
-                                                             in_orig)
+    DH_Regions, hdm_dh_region_cut, geo_transform, total_heat_demand = DHP.DHReg(heat_density_map,
+                                                                                 pix_threshold,
+                                                                                 DH_threshold,
+                                                                                 in_orig)
     if only_return_areas:
         geo_transform = None
         return DH_Regions
@@ -59,9 +59,11 @@ def main(heat_density_map, pix_threshold, DH_threshold, output_raster1,
     symbol_vals_str = []
     if dh_area_flag:
         CM19.main(output_raster1, geo_transform, 'int8', DH_Regions)
-        CM19.main(output_raster2, geo_transform, 'int32', labels)
-        symbol_vals_str = polygonize(output_raster1, output_raster2,
+        temp_raster = os.path.dirname(output_raster2) + '/temp.tif'
+        CM19.main(temp_raster, geo_transform, 'int32', labels)
+        symbol_vals_str = polygonize(output_raster1, temp_raster,
                                      output_shp1, output_shp2, DHPot)
-        rm_file(output_raster2, output_raster2[:-4] + '.tfw')
+        rm_file(temp_raster, temp_raster[:-4] + '.tfw')
+        CM19.main(output_raster2, geo_transform, 'float32', hdm_dh_region_cut)
 
     return total_potential, total_heat_demand, graphics, symbol_vals_str

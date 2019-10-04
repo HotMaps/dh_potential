@@ -133,5 +133,6 @@ def DHReg(heat_density_map, pix_threshold, DH_threshold, in_orig=None):
     total_heat_demand = np.sum(hdm_arr)/1000
     hdm_arr_filtered = hdm_arr * (hdm_arr > pix_threshold)
     DH_Selected_Region = DHRegions(hdm_arr_filtered, DH_threshold)
+    hdm_dh_region_cut = hdm_arr*(DH_Selected_Region > 0).astype(int)
     # return DH_Selected_Region and raster geotransform array
-    return DH_Selected_Region, gt, total_heat_demand
+    return DH_Selected_Region, hdm_dh_region_cut, gt, total_heat_demand
