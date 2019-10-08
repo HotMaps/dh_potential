@@ -54,7 +54,7 @@ SIGNATURE = {
         "heat_tot_curr_density_tif",
     ],
     "type_layer_needed": [
-        {"heat", "description": "default heat density map will be used!"},
+        {"type": "heat", "description": "default heat density map will be used!"},
     ],
     "cm_url": "Do not add something",
     "cm_description": "This computation module calculates district heating " \
