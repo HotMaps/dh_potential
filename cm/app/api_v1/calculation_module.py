@@ -74,5 +74,4 @@ def calculation(output_directory, inputs_raster_selection, inputs_parameter_sele
                                                 {"red":166,"green": 54,"blue":  3,"opacity":0.5,"value":str(float(symbol_vals_str[4]) + step),"label":">" +symbol_vals_str[4] + " GWh"}]
                                   }]
     result['graphics'] = graphics
-
     return result
