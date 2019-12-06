@@ -47,7 +47,7 @@ INPUTS_CALCULATION_MODULE = [
 
 SIGNATURE = {
 
-    "category": "DEMAND",
+    "category": "Demand",
     "authorized_scale":["NUTS 0", "NUTS 1", "NUTS 2", "NUTS 3", "LAU 2", "Hectare"],
     "cm_name": CM_NAME,
     "layers_needed": [
