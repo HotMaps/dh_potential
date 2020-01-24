@@ -28,7 +28,7 @@ INPUTS_CALCULATION_MODULE = [
      'input_type': 'input',
      'input_parameter_name': 'pix_threshold',
      'input_value': 333,
-     'input_unit': 'MWh/ha/yr',
+     'input_unit': 'MWh/(ha*yr)',
      'input_min': 0.1,
      'input_max': 10000000,
      'cm_id': CM_ID
