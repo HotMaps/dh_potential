@@ -64,5 +64,6 @@ SIGNATURE = {
     "indicators and charts regarding DH potential within the selected zone" \
     "and potentials in sub-zones are illustrated.",
     "cm_id": CM_ID,
+    "wiki_url":"https://wiki.hotmaps.eu/en/CM-District-heating-potential-areas-user-defined-thresholds",
     'inputs_calculation_module': INPUTS_CALCULATION_MODULE
 }
