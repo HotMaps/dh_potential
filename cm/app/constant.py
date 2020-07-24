@@ -57,7 +57,7 @@ SIGNATURE = {
         {"type": "heat", "description": "Select heat demand density layer."},
     ],
     "cm_url": "Do not add something",
-    "cm_description": "This computation module calculates district heating " \
+    "cm_description": "This calculatoin module calculates district heating " \
     "potential within the selected region. As output, a layer for the " \
     "potential areas are shown. Click on the regions to get their " \
     "corresponding potential. Within the indicator/graph window, relevant " \
