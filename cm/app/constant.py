@@ -28,18 +28,18 @@ INPUTS_CALCULATION_MODULE = [
      'input_type': 'input',
      'input_parameter_name': 'pix_threshold',
      'input_value': 333,
-     'input_unit': 'MWh/ha',
-     'input_min': 1,
-     'input_max': 10000,
+     'input_unit': 'MWh/(ha*yr)',
+     'input_min': 0.1,
+     'input_max': 10000000,
      'cm_id': CM_ID
      },
     {'input_name': 'Min. heat demand in a DH area',
      'input_type': 'input',
      'input_parameter_name': 'DH_threshold',
      'input_value': 30,
-     'input_unit': 'GWh/year',
+     'input_unit': 'GWh/yr',
      'input_min': 0.1,
-     'input_max': 5000,
+     'input_max': 10000000,
      'cm_id': CM_ID
      }
 ]
@@ -57,12 +57,13 @@ SIGNATURE = {
         {"type": "heat", "description": "Select heat demand density layer."},
     ],
     "cm_url": "Do not add something",
-    "cm_description": "This computation module calculates district heating " \
+    "cm_description": "This calculatoin module calculates district heating " \
     "potential within the selected region. As output, a layer for the " \
     "potential areas are shown. Click on the regions to get their " \
     "corresponding potential. Within the indicator/graph window, relevant " \
     "indicators and charts regarding DH potential within the selected zone" \
     "and potentials in sub-zones are illustrated.",
     "cm_id": CM_ID,
+    "wiki_url":"https://wiki.hotmaps.eu/en/CM-District-heating-potential-areas-user-defined-thresholds",
     'inputs_calculation_module': INPUTS_CALCULATION_MODULE
 }

@@ -12,25 +12,21 @@ if not os.path.exists(UPLOAD_DIRECTORY):
 
 
 class TestAPI(unittest.TestCase):
-
     def setUp(self):
         self.app = create_app(os.environ.get('FLASK_CONFIG', 'development'))
         self.ctx = self.app.app_context()
         self.ctx.push()
-
         self.client = TestClient(self.app,)
 
     def tearDown(self):
-
         self.ctx.pop()
-
 
     def test_compute(self):
         raster_file_path = 'tests/data/raster_for_test.tif'
         # simulate copy from HTAPI to CM
         save_path = UPLOAD_DIRECTORY+"/raster_for_test.tif"
         copyfile(raster_file_path, save_path)
-
+        # provide input parameters
         inputs_raster_selection = {}
         inputs_parameter_selection = {}
         inputs_parameter_selection["pix_threshold"] = "100"
