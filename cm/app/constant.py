@@ -57,11 +57,11 @@ SIGNATURE = {
         {"type": "heat", "description": "Select heat demand density layer."},
     ],
     "cm_url": "Do not add something",
-    "cm_description": "This calculatoin module calculates district heating " \
+    "cm_description": "This calculation module calculates district heating " \
     "potential within the selected region. As output, a layer for the " \
     "potential areas are shown. Click on the regions to get their " \
     "corresponding potential. Within the indicator/graph window, relevant " \
-    "indicators and charts regarding DH potential within the selected zone" \
+    "indicators and charts regarding DH potential within the selected zone " \
     "and potentials in sub-zones are illustrated.",
     "cm_id": CM_ID,
     "wiki_url":"https://wiki.hotmaps.eu/en/CM-District-heating-potential-areas-user-defined-thresholds",
