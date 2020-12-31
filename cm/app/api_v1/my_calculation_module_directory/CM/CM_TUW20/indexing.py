@@ -53,10 +53,10 @@ def calc_index(minx, maxy, dimX, dimY, fminx_, fmaxx_, fminy_, fmaxy_,
         lowIndexY = 0
     if lowIndexX < 0:
         lowIndexX = 0
-    if upIndexY > dimY:
-        upIndexY = dimY
-    if upIndexX > dimX:
-        upIndexX = dimX
+    if upIndexY > dimX:
+        upIndexY = dimX
+    if upIndexX > dimY:
+        upIndexX = dimY
     return (lowIndexX, upIndexX, lowIndexY, upIndexY)
 
 
